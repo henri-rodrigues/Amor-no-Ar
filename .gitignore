@@ -1,0 +1,18 @@
+# Arquivos de sistema Windows
+Thumbs.db
+Desktop.ini
+*.lnk
+
+# Arquivos temporários
+*.tmp
+*.bak
+*.log
+*.cache
+
+# Node (caso use no futuro)
+node_modules/
+.env
+.env.local
+
+# MacOS
+.DS_Store
