@@ -1101,16 +1101,29 @@
 
         <div class="editor-tabs" id="editor-tabs-bar">
           <button class="editor-tab-btn active" data-tab="edit-general">Geral</button>
+          <button class="editor-tab-btn" data-tab="edit-modules">Módulos</button>
           <button class="editor-tab-btn" data-tab="edit-dates">Contadores</button>
           <button class="editor-tab-btn" data-tab="edit-music">Música</button>
           <button class="editor-tab-btn" data-tab="edit-memories">Memórias</button>
+          <button class="editor-tab-btn" data-tab="edit-timeline">Linha do Tempo</button>
           <button class="editor-tab-btn" data-tab="edit-letter">Carta & Quiz</button>
+          <button class="editor-tab-btn" data-tab="edit-coupons">Cupons</button>
           <button class="editor-tab-btn" data-tab="edit-reasons-promises">Razões & Promessas</button>
         </div>
 
         <div class="editor-body">
           <!-- 3.1. Aba Geral -->
           <div class="editor-tab-content active" id="edit-general">
+            <div class="form-group">
+              <label for="edit-theme-select">Tema Visual da Página</label>
+              <select id="edit-theme-select">
+                <option value="default">Clássico Noturno (Roxo e Ouro)</option>
+                <option value="starry">Céu Estrelado (Azul Profundo e Dourado)</option>
+                <option value="rose">Jardim de Rosas (Bordô e Rosa Doce)</option>
+                <option value="neon">Amor Neon (Preto e Glowing Magenta/Ciano)</option>
+                <option value="vintage">Carta Vintage (Papel Envelhecido e Carmesim)</option>
+              </select>
+            </div>
             <div class="form-group">
               <label for="edit-hero-title">Título Hero (HTML/Itálico permitido)</label>
               <input type="text" id="edit-hero-title" placeholder="Para a razão dos<br><em>meus melhores dias.</em>">
@@ -1134,6 +1147,51 @@
             <div class="form-group">
               <label for="edit-quote-2-author">Autor Frase 2</label>
               <input type="text" id="edit-quote-2-author" placeholder="Anônimo">
+            </div>
+          </div>
+
+          <!-- 3.1.5. Aba Módulos -->
+          <div class="editor-tab-content" id="edit-modules">
+            <h4 class="editor-subheader">Seções Visíveis no Site</h4>
+            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Marque as seções que você deseja exibir na página de amor final. Seções desmarcadas serão totalmente ocultadas.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 1rem; background: rgba(255,255,255,0.02); padding: 1.5rem; border-radius: 14px; border: 1px solid rgba(255,255,255,0.04);">
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <input type="checkbox" id="show-sec-timelineCounter" style="width:auto; cursor:pointer;" checked>
+                <label for="show-sec-timelineCounter" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Contador Progressivo (Tempo de Namoro)</label>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <input type="checkbox" id="show-sec-weddingCounter" style="width:auto; cursor:pointer;" checked>
+                <label for="show-sec-weddingCounter" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Contador Regressivo (Tempo para o Casamento)</label>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <input type="checkbox" id="show-sec-player" style="width:auto; cursor:pointer;" checked>
+                <label for="show-sec-player" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Player de Música</label>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <input type="checkbox" id="show-sec-memories" style="width:auto; cursor:pointer;" checked>
+                <label for="show-sec-memories" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Nossas Memórias (Fotos Polaroid)</label>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <input type="checkbox" id="show-sec-timelineStories" style="width:auto; cursor:pointer;" checked>
+                <label for="show-sec-timelineStories" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Linha do Tempo (Nossa História / Marcos)</label>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <input type="checkbox" id="show-sec-letter" style="width:auto; cursor:pointer;" checked>
+                <label for="show-sec-letter" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Carta Secreta</label>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <input type="checkbox" id="show-sec-quiz" style="width:auto; cursor:pointer;" checked>
+                <label for="show-sec-quiz" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Quiz do Casal</label>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <input type="checkbox" id="show-sec-reasons" style="width:auto; cursor:pointer;" checked>
+                <label for="show-sec-reasons" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Razões Pelas Quais Eu Te Amo</label>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <input type="checkbox" id="show-sec-promises" style="width:auto; cursor:pointer;" checked>
+                <label for="show-sec-promises" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Sonhos & Promessas (Dream Board)</label>
+              </div>
             </div>
           </div>
 
@@ -1231,6 +1289,20 @@
             </div>
           </div>
 
+          <!-- 3.4.5. Aba Linha do Tempo -->
+          <div class="editor-tab-content" id="edit-timeline">
+            <h4 class="editor-subheader">Marcos da Nossa História</h4>
+            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Crie uma linha do tempo dos momentos mais inesquecíveis de vocês. Adicione marcos com data, título, descrição e uma foto!</p>
+            
+            <div style="margin-bottom: 1.5rem;">
+              <button type="button" class="btn btn-rose" id="add-timeline-item-btn" style="font-size: 0.75rem;">+ Adicionar Novo Marco</button>
+            </div>
+            
+            <div id="timeline-edit-fields-list">
+              <!-- Renderizado dinamicamente por JS -->
+            </div>
+          </div>
+
           <!-- 3.5. Aba Carta & Quiz -->
           <div class="editor-tab-content" id="edit-letter">
             <h4 class="editor-subheader">Carta Secreta</h4>
@@ -1246,6 +1318,20 @@
             <h4 class="editor-subheader" style="margin-top:2.5rem">Quiz do Casal (Perguntas)</h4>
             <div id="quiz-edit-fields-list">
               <!-- Renderizado dinamicamente -->
+            </div>
+          </div>
+
+          <!-- 3.5.5. Aba Cupons -->
+          <div class="editor-tab-content" id="edit-coupons">
+            <h4 class="editor-subheader">Nossos Cupons de Amor</h4>
+            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Crie cupons de amor dinâmicos que seu parceiro poderá resgatar na página. Personalize com um emoji de ícone, título e descrição!</p>
+            
+            <div style="margin-bottom: 1.5rem;">
+              <button type="button" class="btn btn-rose" id="add-coupon-item-btn" style="font-size: 0.75rem;">+ Adicionar Novo Cupom</button>
+            </div>
+            
+            <div id="coupons-edit-fields-list">
+              <!-- Renderizado dinamicamente por JS -->
             </div>
           </div>
 
@@ -1316,6 +1402,21 @@
   <script>
     // Configurações Padrões Iniciais (Usadas ao Criar Nova Página)
     const DEFAULT_CONFIG = {
+      theme: "default",
+      visibleSections: {
+        timelineCounter: true,
+        weddingCounter: true,
+        player: true,
+        timelineStories: true,
+        memories: true,
+        letter: true,
+        quiz: true,
+        reasons: true,
+        promises: true
+      },
+      timelineStories: [
+        { date: "15/06/2025", title: "Primeiro Encontro", desc: "Aquele dia em que tudo começou...", img: "" }
+      ],
       heroTitle: "Para a razão dos<br><em>meus melhores dias.</em>",
       heroSubtitle: '"Cada momento contigo é uma memória que carrego para sempre."',
       startDate: "2025-05-28T21:48:00",
@@ -2098,12 +2199,25 @@
 
     function fillFormInputs() {
       // 1. Geral
+      document.getElementById('edit-theme-select').value = activeEditorConfig.theme || 'default';
       document.getElementById('edit-hero-title').value = activeEditorConfig.heroTitle;
       document.getElementById('edit-hero-sub').value = activeEditorConfig.heroSubtitle;
       document.getElementById('edit-quote-1').value = activeEditorConfig.quotes[0].text;
       document.getElementById('edit-quote-1-author').value = activeEditorConfig.quotes[0].author;
       document.getElementById('edit-quote-2').value = activeEditorConfig.quotes[1].text;
       document.getElementById('edit-quote-2-author').value = activeEditorConfig.quotes[1].author;
+
+      // 1.5. Módulos
+      const vs = activeEditorConfig.visibleSections || DEFAULT_CONFIG.visibleSections;
+      document.getElementById('show-sec-timelineCounter').checked = vs.timelineCounter !== false;
+      document.getElementById('show-sec-weddingCounter').checked = vs.weddingCounter !== false;
+      document.getElementById('show-sec-player').checked = vs.player !== false;
+      document.getElementById('show-sec-memories').checked = vs.memories !== false;
+      document.getElementById('show-sec-timelineStories').checked = vs.timelineStories !== false;
+      document.getElementById('show-sec-letter').checked = vs.letter !== false;
+      document.getElementById('show-sec-quiz').checked = vs.quiz !== false;
+      document.getElementById('show-sec-reasons').checked = vs.reasons !== false;
+      document.getElementById('show-sec-promises').checked = vs.promises !== false;
 
       // 2. Datas
       document.getElementById('edit-start-date').value = activeEditorConfig.startDate;
@@ -2127,10 +2241,16 @@
       // 4. Memórias (Dinâmicas)
       renderMemoriesFields();
 
+      // 4.5. Linha do Tempo
+      renderTimelineFields();
+
       // 5. Carta e Quiz
       document.getElementById('edit-letter-text').value = activeEditorConfig.letterText;
       document.getElementById('edit-letter-speed').value = activeEditorConfig.letterSpeed;
       renderQuizFields();
+
+      // 5.5. Cupons
+      renderCouponsFields();
 
       // 6. Razões e Promessas
       document.getElementById('edit-reasons-text').value = activeEditorConfig.reasons.join('\n');
@@ -2184,6 +2304,116 @@
         });
       });
     }
+
+    function renderTimelineFields() {
+      const container = document.getElementById('timeline-edit-fields-list');
+      container.innerHTML = '';
+      if (!activeEditorConfig.timelineStories) {
+        activeEditorConfig.timelineStories = [];
+      }
+      
+      if (activeEditorConfig.timelineStories.length === 0) {
+        container.innerHTML = '<p style="color:var(--muted); font-style:italic; font-size:0.8rem; padding:1rem 0;">Nenhum marco adicionado ainda.</p>';
+        return;
+      }
+
+      activeEditorConfig.timelineStories.forEach((story, idx) => {
+        const card = document.createElement('div');
+        card.className = 'mem-edit-card';
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.8rem;">
+            <div class="mem-edit-card-title" style="margin:0;">Marco ${idx + 1}</div>
+            <button type="button" class="btn btn-danger-outline" onclick="deleteTimelineItem(${idx}); return false;" style="font-size:0.6rem; padding:0.25rem 0.6rem;">✕ Excluir</button>
+          </div>
+          <div class="form-group-row">
+            <div class="form-group">
+              <label>Título do Marco</label>
+              <input type="text" class="edit-timeline-title" data-idx="${idx}" value="${story.title || ''}">
+            </div>
+            <div class="form-group">
+              <label>Data (Exibida)</label>
+              <input type="text" class="edit-timeline-date" data-idx="${idx}" value="${story.date || ''}" placeholder="Ex: 12/06/2025">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Descrição do Acontecimento</label>
+            <textarea class="edit-timeline-desc" data-idx="${idx}" rows="2">${story.desc || ''}</textarea>
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label>Foto do Marco (Upload ou URL)</label>
+            <div style="display:flex; gap:0.5rem">
+              <input type="text" class="edit-timeline-img" id="edit-timeline-img-${idx}" value="${story.img || ''}" style="flex:1">
+              <input type="file" class="upload-timeline-img" id="upload-timeline-img-${idx}" accept="image/*" style="display:none">
+              <button type="button" class="btn btn-outline" style="border-radius:10px; font-size:0.65rem;" onclick="document.getElementById('upload-timeline-img-${idx}').click(); return false;">Upload</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+
+        // Listen Upload
+        const fileInput = card.querySelector('.upload-timeline-img');
+        fileInput.addEventListener('change', function (e) {
+          const file = e.target.files[0];
+          if (file) {
+            resizeImage(file, 600, 600, (base64) => {
+              document.getElementById(`edit-timeline-img-${idx}`).value = base64;
+              showToast(`Foto do marco ${idx + 1} adicionada!`);
+            });
+          }
+        });
+      });
+    }
+
+    window.deleteTimelineItem = function(idx) {
+      activeEditorConfig.timelineStories.splice(idx, 1);
+      renderTimelineFields();
+      showToast("Marco removido!");
+    };
+
+    function renderCouponsFields() {
+      const container = document.getElementById('coupons-edit-fields-list');
+      container.innerHTML = '';
+      if (!activeEditorConfig.coupons) {
+        activeEditorConfig.coupons = [];
+      }
+      
+      if (activeEditorConfig.coupons.length === 0) {
+        container.innerHTML = '<p style="color:var(--muted); font-style:italic; font-size:0.8rem; padding:1rem 0;">Nenhum cupom adicionado ainda.</p>';
+        return;
+      }
+
+      activeEditorConfig.coupons.forEach((cp, idx) => {
+        const card = document.createElement('div');
+        card.className = 'quiz-edit-card';
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.8rem;">
+            <div class="quiz-edit-card-title" style="margin:0;">Cupom ${idx + 1}</div>
+            <button type="button" class="btn btn-danger-outline" onclick="deleteCouponItem(${idx}); return false;" style="font-size:0.6rem; padding:0.25rem 0.6rem;">✕ Excluir</button>
+          </div>
+          <div class="form-group-row">
+            <div class="form-group">
+              <label>Emoji / Ícone</label>
+              <input type="text" class="edit-coupon-icon" data-idx="${idx}" value="${cp.icon || '🎁'}" placeholder="Ex: 🧸">
+            </div>
+            <div class="form-group">
+              <label>Título do Cupom</label>
+              <input type="text" class="edit-coupon-title" data-idx="${idx}" value="${cp.title || ''}">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label>Descrição do Cupom</label>
+            <input type="text" class="edit-coupon-desc" data-idx="${idx}" value="${cp.desc || ''}">
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    window.deleteCouponItem = function(idx) {
+      activeEditorConfig.coupons.splice(idx, 1);
+      renderCouponsFields();
+      showToast("Cupom removido!");
+    };
 
     function renderQuizFields() {
       const container = document.getElementById('quiz-edit-fields-list');
@@ -2307,6 +2537,53 @@
         activeEditorConfig.promises[i].title = document.querySelector(`.edit-promise-title[data-idx="${i}"]`).value;
         activeEditorConfig.promises[i].desc = document.querySelector(`.edit-promise-desc[data-idx="${i}"]`).value;
         activeEditorConfig.promises[i].achieved = document.querySelector(`.edit-promise-achieved[data-idx="${i}"]`).checked;
+      }
+
+      // Captura Tema
+      activeEditorConfig.theme = document.getElementById('edit-theme-select').value;
+
+      // Captura Módulos (Visibilidade)
+      activeEditorConfig.visibleSections = {
+        timelineCounter: document.getElementById('show-sec-timelineCounter').checked,
+        weddingCounter: document.getElementById('show-sec-weddingCounter').checked,
+        player: document.getElementById('show-sec-player').checked,
+        memories: document.getElementById('show-sec-memories').checked,
+        timelineStories: document.getElementById('show-sec-timelineStories').checked,
+        letter: document.getElementById('show-sec-letter').checked,
+        quiz: document.getElementById('show-sec-quiz').checked,
+        reasons: document.getElementById('show-sec-reasons').checked,
+        promises: document.getElementById('show-sec-promises').checked
+      };
+
+      // Captura Linha do Tempo
+      const timelineTitles = document.querySelectorAll('.edit-timeline-title');
+      const timelineDates = document.querySelectorAll('.edit-timeline-date');
+      const timelineDescs = document.querySelectorAll('.edit-timeline-desc');
+      const timelineImgs = document.querySelectorAll('.edit-timeline-img');
+      
+      activeEditorConfig.timelineStories = [];
+      for (let i = 0; i < timelineTitles.length; i++) {
+        activeEditorConfig.timelineStories.push({
+          title: timelineTitles[i].value,
+          date: timelineDates[i].value,
+          desc: timelineDescs[i].value,
+          img: timelineImgs[i].value
+        });
+      }
+
+      // Captura Cupons
+      const couponIcons = document.querySelectorAll('.edit-coupon-icon');
+      const couponTitles = document.querySelectorAll('.edit-coupon-title');
+      const couponDescs = document.querySelectorAll('.edit-coupon-desc');
+      
+      activeEditorConfig.coupons = [];
+      for (let i = 0; i < couponIcons.length; i++) {
+        activeEditorConfig.coupons.push({
+          id: i + 1,
+          icon: couponIcons[i].value,
+          title: couponTitles[i].value,
+          desc: couponDescs[i].value
+        });
       }
 
       const userId = window.auth.currentUser.uid;
