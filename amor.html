@@ -3113,7 +3113,11 @@
             })
             .catch(err => {
               console.error("Erro ao carregar página:", err);
-              showError("Houve um erro de conexão ao tentar carregar a página romântica. Por favor, recarregue a aba.");
+              if (err.code === 'permission-denied') {
+                showError("Erro de Permissão no Firebase: Certifique-se de configurar as regras de leitura para a coleção 'pages' como pública ('allow read: if true;') no Console do Firebase.");
+              } else {
+                showError("Houve um erro de conexão ao tentar carregar a página romântica. Por favor, recarregue a aba.");
+              }
             });
         }
       }, 100);

@@ -955,11 +955,13 @@
   <header>
     <div class="header-inner">
       <a href="#" class="logo">Páginas de <span>Amor</span></a>
-      <div class="user-menu" id="user-menu-area" style="display:none">
-        <span class="user-email" id="current-user-email">email@exemplo.com</span>
+      <div style="display: flex; gap: 0.8rem; align-items: center;">
         <button class="btn btn-outline" id="manual-btn" style="border-color: var(--rose); color: var(--rose);">📖 Guia Visual</button>
-        <button class="btn btn-outline" id="admin-toggle-btn" style="display:none; border-color: rgba(201,169,110,0.3); color: var(--gold);">⚙ Admin</button>
-        <button class="btn btn-outline" id="logout-btn">Sair</button>
+        <div class="user-menu" id="user-menu-area" style="display:none">
+          <span class="user-email" id="current-user-email">email@exemplo.com</span>
+          <button class="btn btn-outline" id="admin-toggle-btn" style="display:none; border-color: rgba(201,169,110,0.3); color: var(--gold);">⚙ Admin</button>
+          <button class="btn btn-outline" id="logout-btn">Sair</button>
+        </div>
       </div>
     </div>
   </header>
@@ -1017,6 +1019,26 @@
           <svg style="width:16px; height:16px; fill:currentColor" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
           Nova Página
         </button>
+      </div>
+
+      <!-- Alerta de Configuração de Regras Firestore (Oculto por Padrão) -->
+      <div class="firebase-rules-warning" id="firebase-rules-warning" style="display: none; background: rgba(218, 79, 79, 0.1); border: 1px solid rgba(218, 79, 79, 0.3); padding: 1.2rem; border-radius: 16px; margin-bottom: 2rem; color: #ffb3b3; font-size: 0.85rem; line-height: 1.6;">
+        <h4 style="margin: 0 0 0.5rem 0; font-family: 'Cinzel', serif; font-size: 1rem; color: var(--rose);">⚠️ Erro de Permissão no Firestore</h4>
+        <p style="margin: 0 0 0.8rem 0;">O Firebase está recusando o acesso aos dados devido a regras de segurança restritivas. Para corrigir e liberar a criação de páginas, configure as seguintes regras no Console do Firebase (Firestore > Regras):</p>
+        <pre style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 0.75rem; overflow-x: auto; color: var(--cream); margin: 0 0 0.8rem 0; border: 1px solid rgba(255,255,255,0.06);">
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read, write: if request.auth != null &amp;&amp; request.auth.uid == userId;
+    }
+    match /pages/{pageId} {
+      allow read: if true;
+      allow create, update, delete: if request.auth != null &amp;&amp; (resource == null || resource.data.userId == request.auth.uid || request.resource.data.userId == request.auth.uid);
+    }
+  }
+}</pre>
+        <p style="margin: 0; font-size: 0.8rem; font-style: italic; color: var(--muted);">Copie e cole o código acima na aba "Regras" (Rules) do seu Cloud Firestore no Console do Firebase e clique em "Publicar". Depois recarregue esta página.</p>
       </div>
 
       <!-- Banner de Créditos (Fase 1 - Manual PIX) -->
@@ -1111,7 +1133,10 @@
       <div class="editor-card">
         <div class="editor-card-header">
           <h3 id="editor-title-label">Criar Nova Página Romântica</h3>
-          <button class="btn btn-outline" id="editor-cancel-btn">Cancelar</button>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <button class="btn btn-outline" id="editor-manual-btn" style="border-color: var(--rose); color: var(--rose); font-size: 0.72rem; padding: 0.5rem 1rem;">📖 Guia Visual</button>
+            <button class="btn btn-outline" id="editor-cancel-btn">Cancelar</button>
+          </div>
         </div>
 
         <div class="editor-tabs" id="editor-tabs-bar">
@@ -1447,9 +1472,6 @@
         <svg style="width:18px; height:18px; fill:currentColor" viewBox="0 0 24 24"><path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.335 4.978L2 22l5.188-1.361a9.929 9.929 0 0 0 4.817 1.361h.005c5.507 0 9.99-4.478 9.99-9.985 0-2.67-1.037-5.178-2.92-7.062C17.197 3.069 14.69 2 12.012 2zm6.936 14.133c-.285.802-1.424 1.448-1.968 1.54-.499.085-1.153.154-3.344-.754-2.802-1.163-4.612-4.013-4.752-4.2a4.93 4.93 0 0 1-1.048-2.673c0-1.884.99-2.83 1.347-3.19.29-.294.639-.371.85-.371.16 0 .324.004.465.01.418.019.627.042.902.7.275.659.945 2.308 1.026 2.473.082.165.137.358.028.577-.11.22-.165.358-.33.55-.165.193-.349.33-.495.523-.16.208-.328.435-.14.757.188.322.835 1.378 1.791 2.229.957.85 1.76 1.115 2.074 1.246.314.13.498.11.687-.107.189-.217.81-.945 1.025-1.267.217-.323.435-.27.734-.16.299.11 1.9.897 2.226 1.062.327.165.545.244.627.385.083.14.083.812-.202 1.614z"/></svg>
         Enviar Comprovante por WhatsApp
       </a>
-    </div>
-  </div>
-
     </div>
   </div>
 
@@ -1901,6 +1923,10 @@
         }
       }, err => {
         console.error("Erro ao escutar créditos", err);
+        if (err.code === 'permission-denied') {
+          const rulesWarning = document.getElementById('firebase-rules-warning');
+          if (rulesWarning) rulesWarning.style.display = 'block';
+        }
       });
     }
 
@@ -1944,14 +1970,16 @@
     // Controle do Modal do Guia Visual (Manual)
     const manualModal = document.getElementById('manual-modal');
     const manualBtn = document.getElementById('manual-btn');
+    const editorManualBtn = document.getElementById('editor-manual-btn');
     const closeManualBtn = document.getElementById('close-manual-btn');
     const closeManualBtnBottom = document.getElementById('close-manual-btn-bottom');
 
-    if (manualBtn) {
-      manualBtn.addEventListener('click', () => {
-        manualModal.classList.add('open');
-      });
-    }
+    const showManualModal = () => {
+      manualModal.classList.add('open');
+    };
+
+    if (manualBtn) manualBtn.addEventListener('click', showManualModal);
+    if (editorManualBtn) editorManualBtn.addEventListener('click', showManualModal);
 
     const hideManualModal = () => {
       manualModal.classList.remove('open');
@@ -2266,6 +2294,10 @@
           loadingOverlay.style.pointerEvents = 'none';
         }, err => {
           console.error("Erro ao escutar Firestore", err);
+          if (err.code === 'permission-denied') {
+            const rulesWarning = document.getElementById('firebase-rules-warning');
+            if (rulesWarning) rulesWarning.style.display = 'block';
+          }
           showToast("Erro ao buscar suas páginas.", "error");
           loadingOverlay.style.opacity = '0';
           loadingOverlay.style.pointerEvents = 'none';
