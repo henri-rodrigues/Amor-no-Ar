@@ -3067,7 +3067,7 @@
         CONFIG = Object.assign({}, base);
         CONFIG.theme = "rose";
         CONFIG.heroTitle = "Para a razão dos<br><em>meus melhores dias.</em>";
-        CONFIG.heroSub = "Cada segundo ao seu lado é um presente inestimável.";
+        CONFIG.heroSubtitle = "Cada segundo ao seu lado é um presente inestimável.";
         CONFIG.visibleSections = Object.assign({}, base.visibleSections, {
           timelineCounter: true,
           weddingCounter: true,
@@ -3084,12 +3084,12 @@
           { date: "24 de Dezembro de 2025", title: "Primeiro Natal Juntos", desc: "Celebrando sob as luzes e o amor da nossa família.", img: "" }
         ];
         CONFIG.coupons = [
-          { emoji: "🍕", title: "Vale Rodízio de Pizza", desc: "Válido para uma noite cheia de fatias de pizza e carinho.", code: "PIZZA-LOVE", redeemed: false },
-          { emoji: "💆", title: "Vale Massagem Relaxante", desc: "Válido para 30 minutos de relaxamento total sem interrupções.", code: "MASS-LOVE", redeemed: false }
+          { id: 1, title: "Vale Rodízio de Pizza", desc: "Válido para uma noite cheia de fatias de pizza e carinho.", icon: "🍕" },
+          { id: 2, title: "Vale Massagem Relaxante", desc: "Válido para 30 minutos de relaxamento total sem interrupções.", icon: "💆" }
         ];
         CONFIG.quiz = [
-          { q: "Onde foi nosso primeiro encontro?", options: ["Parque", "Restaurante", "Cinema"], ans: 1 },
-          { q: "Qual a nossa comida favorita?", options: ["Pizza", "Sushi", "Hambúrguer"], ans: 0 }
+          { q: "Onde foi nosso primeiro encontro?", a: ["Parque", "Restaurante", "Cinema"], correct: 1 },
+          { q: "Qual a nossa comida favorita?", a: ["Pizza", "Sushi", "Hambúrguer"], correct: 0 }
         ];
         CONFIG.reasons = [
           "Seu sorriso ilumina os meus dias mais cinzentos.",
@@ -3097,10 +3097,10 @@
           "Sua determinação me inspira a ser alguém melhor."
         ];
         CONFIG.promises = [
-          { title: "Viajar pelo mundo", desc: "Conhecer pelo menos 5 países juntos nos próximos anos." },
-          { title: "Construir nosso lar", desc: "Criar um espaço aconchegante com a nossa cara." },
-          { title: "Ter um cachorrinho", desc: "Adotar um companheiro de quatro patas para nossa família." },
-          { title: "Nunca dormir brigados", desc: "Conversar e resolver qualquer desentendimento com paciência." }
+          { title: "Viajar pelo mundo", desc: "Conhecer pelo menos 5 países juntos nos próximos anos.", badge: "✈️", achieved: false },
+          { title: "Construir nosso lar", desc: "Criar um espaço aconchegante com a nossa cara.", badge: "🏡", achieved: false },
+          { title: "Ter um cachorrinho", desc: "Adotar um companheiro de quatro patas para nossa família.", badge: "🐾", achieved: false },
+          { title: "Nunca dormir brigados", desc: "Conversar e resolver qualquer desentendimento com paciência.", badge: "❤️", achieved: false }
         ];
 
         setTimeout(() => {
