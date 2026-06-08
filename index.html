@@ -930,6 +930,12 @@
       color: var(--rose) !important;
       border-bottom-color: var(--rose) !important;
     }
+
+    .manual-tab-btn.active {
+      background: var(--rose) !important;
+      color: var(--bg) !important;
+      border-color: var(--rose) !important;
+    }
   </style>
 
 </head>
@@ -951,6 +957,7 @@
       <a href="#" class="logo">Páginas de <span>Amor</span></a>
       <div class="user-menu" id="user-menu-area" style="display:none">
         <span class="user-email" id="current-user-email">email@exemplo.com</span>
+        <button class="btn btn-outline" id="manual-btn" style="border-color: var(--rose); color: var(--rose);">📖 Guia Visual</button>
         <button class="btn btn-outline" id="admin-toggle-btn" style="display:none; border-color: rgba(201,169,110,0.3); color: var(--gold);">⚙ Admin</button>
         <button class="btn btn-outline" id="logout-btn">Sair</button>
       </div>
@@ -1443,6 +1450,91 @@
     </div>
   </div>
 
+    </div>
+  </div>
+
+  <!-- MODAL DO GUIA VISUAL (MANUAL) -->
+  <div id="manual-modal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-content" style="max-width: 640px; padding: 2.5rem; text-align: left; max-height: 85vh; overflow-y: auto;">
+      <span class="close-modal" id="close-manual-btn">&times;</span>
+      
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <span style="font-size: 2.5rem;">📖</span>
+        <h3 style="font-family: 'Cinzel', serif; font-size: 1.4rem; color: var(--rose); margin-top: 0.5rem; letter-spacing: 0.05em;">Guia Visual do Criador</h3>
+        <p style="font-size: 0.8rem; color: var(--muted); font-style: italic;">Aprenda o que cada recurso faz na página final do casal!</p>
+      </div>
+
+      <!-- Abas internas do manual -->
+      <div style="display: flex; gap: 0.5rem; overflow-x: auto; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 0.5rem;">
+        <button class="btn btn-outline active manual-tab-btn" data-mtab="man-intro" style="font-size: 0.65rem; padding: 0.4rem 0.8rem;">1. Introdução</button>
+        <button class="btn btn-outline manual-tab-btn" data-mtab="man-themes" style="font-size: 0.65rem; padding: 0.4rem 0.8rem;">2. Temas & Cores</button>
+        <button class="btn btn-outline manual-tab-btn" data-mtab="man-timeline" style="font-size: 0.65rem; padding: 0.4rem 0.8rem;">3. Linha do Tempo</button>
+        <button class="btn btn-outline manual-tab-btn" data-mtab="man-coupons" style="font-size: 0.65rem; padding: 0.4rem 0.8rem;">4. Cupons de Amor</button>
+        <button class="btn btn-outline manual-tab-btn" data-mtab="man-music-letter" style="font-size: 0.65rem; padding: 0.4rem 0.8rem;">5. Música & Jogo</button>
+      </div>
+
+      <!-- Conteúdos do Manual -->
+      <div class="manual-content-box">
+        <!-- Aba 1: Intro -->
+        <div class="manual-tab-content active" id="man-intro">
+          <h4 style="color: var(--gold); margin-bottom: 0.8rem; font-family: 'Cinzel', serif; font-size: 1rem;">O que é a Página de Amor?</h4>
+          <p style="font-size: 0.85rem; line-height: 1.6; color: var(--cream); margin-bottom: 1.2rem;">
+            É um site totalmente personalizado para celebrar a relação do casal. Ele funciona perfeitamente em celulares e computadores, contendo fotos, músicas, cartas secretas e contadores que mostram o tempo juntos até os segundos!
+          </p>
+          <img src="manual_intro.png" alt="Demonstração da Página" style="width: 100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); margin-top: 0.5rem;">
+        </div>
+
+        <!-- Aba 2: Temas -->
+        <div class="manual-tab-content" id="man-themes" style="display: none;">
+          <h4 style="color: var(--gold); margin-bottom: 0.8rem; font-family: 'Cinzel', serif; font-size: 1rem;">Temas Visuais</h4>
+          <p style="font-size: 0.85rem; line-height: 1.6; color: var(--cream); margin-bottom: 1rem;">
+            Você pode selecionar entre 5 temas diferentes para mudar a cara do site:
+          </p>
+          <ul style="font-size: 0.8rem; line-height: 1.6; color: var(--muted); margin-bottom: 1rem; padding-left: 1.2rem;">
+            <li><strong style="color: var(--rose);">Clássico Noturno</strong>: Fundo escuro com tons de rosa e dourado luxuoso.</li>
+            <li><strong style="color: var(--rose);">Céu Estrelado</strong>: Tons azul-escuros mágicos com realces em amarelo estelar.</li>
+            <li><strong style="color: var(--rose);">Jardim de Rosas</strong>: Cores bordô e rosa-doce apaixonantes.</li>
+            <li><strong style="color: var(--rose);">Amor Neon</strong>: Estilo balada noturna com luzes rosa-neon e ciano.</li>
+            <li><strong style="color: var(--rose);">Carta Vintage</strong>: Fundo claro como papel envelhecido, clássico e romântico.</li>
+          </ul>
+          <p style="font-size: 0.8rem; color: var(--gold); font-style: italic;">Dica: Você pode alterar o tema a qualquer momento editando a sua página!</p>
+        </div>
+
+        <!-- Aba 3: Linha do Tempo -->
+        <div class="manual-tab-content" id="man-timeline" style="display: none;">
+          <h4 style="color: var(--gold); margin-bottom: 0.8rem; font-family: 'Cinzel', serif; font-size: 1rem;">Nossa Linha do Tempo</h4>
+          <p style="font-size: 0.85rem; line-height: 1.6; color: var(--cream); margin-bottom: 1.2rem;">
+            Mostre a história de vocês através de marcos visuais (Ex: Primeiro Beijo, Primeiro Encontro, Viagem do Casal). Adicione um título, a data, conte um breve resumo e envie uma foto especial para cada marco.
+          </p>
+          <img src="manual_timeline.png" alt="Demonstração da Linha do Tempo" style="width: 100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); margin-top: 0.5rem;">
+        </div>
+
+        <!-- Aba 4: Cupons -->
+        <div class="manual-tab-content" id="man-coupons" style="display: none;">
+          <h4 style="color: var(--gold); margin-bottom: 0.8rem; font-family: 'Cinzel', serif; font-size: 1rem;">Cupons & Vales de Amor</h4>
+          <p style="font-size: 0.85rem; line-height: 1.6; color: var(--cream); margin-bottom: 1.2rem;">
+            Os cupons são presentes virtuais super divertidos. Quando seu parceiro abrir a página, ele verá os cupons criados por você (ex: "Vale Massagem", "Vale Rodízio de Pizza"). Ao clicar no botão, o cupom é marcado como resgatado para sempre!
+          </p>
+          <img src="manual_coupons.png" alt="Demonstração de Cupons" style="width: 100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); margin-top: 0.5rem;">
+        </div>
+
+        <!-- Aba 5: Musica & Jogo -->
+        <div class="manual-tab-content" id="man-music-letter" style="display: none;">
+          <h4 style="color: var(--gold); margin-bottom: 0.8rem; font-family: 'Cinzel', serif; font-size: 1rem;">Música de Fundo, Vinil & Quiz</h4>
+          <ul style="font-size: 0.8rem; line-height: 1.6; color: var(--cream); padding-left: 1.2rem;">
+            <li style="margin-bottom: 0.5rem;"><strong style="color: var(--rose);">Música de Fundo</strong>: Uma melodia suave (ex: Für Elise) toca automaticamente ao abrir o presente, criando o clima romântico.</li>
+            <li style="margin-bottom: 0.5rem;"><strong style="color: var(--rose);">Disco de Vinil</strong>: O player de música exibe a foto do casal girando como um vinil e um visualizador de áudio dinâmico quando a música toca.</li>
+            <li style="margin-bottom: 0.5rem;"><strong style="color: var(--rose);">Quiz e Carta</strong>: Um jogo interativo com 3 perguntas sobre vocês e um botão em forma de envelope que digita a sua carta de amor letra por letra.</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1.5rem; text-align: center;">
+        <button class="btn btn-rose" id="close-manual-btn-bottom" style="width: 100%; padding: 0.75rem 0; cursor:pointer;">Começar a Criar!</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Notificação Toast -->
   <div id="toast">
     <span id="toast-icon">✨</span>
@@ -1848,6 +1940,50 @@
         .then(() => showToast("Chave PIX copiada!"))
         .catch(err => showToast("Erro ao copiar chave.", "error"));
     };
+
+    // Controle do Modal do Guia Visual (Manual)
+    const manualModal = document.getElementById('manual-modal');
+    const manualBtn = document.getElementById('manual-btn');
+    const closeManualBtn = document.getElementById('close-manual-btn');
+    const closeManualBtnBottom = document.getElementById('close-manual-btn-bottom');
+
+    if (manualBtn) {
+      manualBtn.addEventListener('click', () => {
+        manualModal.classList.add('open');
+      });
+    }
+
+    const hideManualModal = () => {
+      manualModal.classList.remove('open');
+    };
+
+    if (closeManualBtn) closeManualBtn.addEventListener('click', hideManualModal);
+    if (closeManualBtnBottom) closeManualBtnBottom.addEventListener('click', hideManualModal);
+
+    manualModal.addEventListener('click', (e) => {
+      if (e.target === manualModal) {
+        hideManualModal();
+      }
+    });
+
+    const manualTabBtns = document.querySelectorAll('.manual-tab-btn');
+    const manualTabContents = document.querySelectorAll('#manual-modal .manual-tab-content');
+    manualTabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-mtab');
+        manualTabBtns.forEach(b => b.classList.remove('active'));
+        manualTabContents.forEach(c => {
+          c.style.display = 'none';
+          c.classList.remove('active');
+        });
+        btn.classList.add('active');
+        const targetEl = document.getElementById(target);
+        if (targetEl) {
+          targetEl.style.display = 'block';
+          targetEl.classList.add('active');
+        }
+      });
+    });
 
     // ── ADMIN: Alternar entre painel normal e admin ──
     adminToggleBtn.addEventListener('click', () => {
@@ -2319,7 +2455,19 @@
       const page = localPagesList.find(p => p.id === pageId);
       if (page) {
         currentEditPageId = pageId;
-        activeEditorConfig = Object.assign({}, JSON.parse(JSON.stringify(DEFAULT_CONFIG)), page.config);
+        
+        // Deep merge config to backfill defaults for laypeople editing older records
+        const base = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+        const saved = page.config || {};
+        
+        activeEditorConfig = Object.assign({}, base, saved);
+        activeEditorConfig.visibleSections = Object.assign({}, base.visibleSections, saved.visibleSections || {});
+        activeEditorConfig.timelineStories = saved.timelineStories || base.timelineStories || [];
+        activeEditorConfig.coupons = saved.coupons || base.coupons || [];
+        activeEditorConfig.quiz = saved.quiz || base.quiz || [];
+        activeEditorConfig.promises = saved.promises || base.promises || [];
+        activeEditorConfig.memories = saved.memories || base.memories || [];
+        
         editorTitleLabel.textContent = "Editar Página Romântica";
         fillFormInputs();
         dashboardSection.style.display = 'none';

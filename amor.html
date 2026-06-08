@@ -2475,7 +2475,7 @@
 
         const caption = document.createElement('p');
         caption.className = 'polaroid-caption';
-        caption.textContent = mem.caption;
+        caption.textContent = mem.caption || '';
 
         card.appendChild(imgWrap);
         card.appendChild(caption);
@@ -2512,15 +2512,15 @@
         const card = document.createElement('div');
         card.className = `promise-card reveal reveal-delay-${(index % 2) + 1}`;
         card.innerHTML = `
-      <span class="promise-badge">${pr.badge}</span>
+      <span class="promise-badge">${pr.badge || ''}</span>
       <div class="promise-info">
         <h3 class="promise-title">
-          ${pr.title}
+          ${pr.title || ''}
           <span class="promise-status ${pr.achieved ? 'achieved' : ''}">
             ${pr.achieved ? 'Alcançado' : 'Prometido'}
           </span>
         </h3>
-        <p class="promise-desc">${pr.desc}</p>
+        <p class="promise-desc">${pr.desc || ''}</p>
       </div>
     `;
         promisesGrid.appendChild(card);
@@ -2547,9 +2547,9 @@
           item.innerHTML = `
             <div class="timeline-dot"></div>
             <div class="timeline-content reveal reveal-delay-${(index % 2) + 1}">
-              <span class="timeline-date">${story.date}</span>
-              <h3 class="timeline-title">${story.title}</h3>
-              <p class="timeline-desc">${story.desc}</p>
+              <span class="timeline-date">${story.date || ''}</span>
+              <h3 class="timeline-title">${story.title || ''}</h3>
+              <p class="timeline-desc">${story.desc || ''}</p>
               ${imgHtml}
             </div>
           `;
@@ -3084,7 +3084,18 @@
             .then(doc => {
               if (doc.exists) {
                 const data = doc.data();
-                CONFIG = Object.assign({}, DEFAULT_CONFIG, data.config);
+                
+                // Deep merge config to guarantee defaults for all sections
+                const base = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+                const saved = data.config || {};
+                
+                CONFIG = Object.assign({}, base, saved);
+                CONFIG.visibleSections = Object.assign({}, base.visibleSections, saved.visibleSections || {});
+                CONFIG.timelineStories = saved.timelineStories || base.timelineStories || [];
+                CONFIG.coupons = saved.coupons || base.coupons || [];
+                CONFIG.quiz = saved.quiz || base.quiz || [];
+                CONFIG.promises = saved.promises || base.promises || [];
+                CONFIG.memories = saved.memories || base.memories || [];
                 
                 // Renderizar DOM com os dados recuperados
                 renderDOM();
