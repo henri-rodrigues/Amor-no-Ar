@@ -3074,6 +3074,56 @@
         return;
       }
 
+      if (pageId === 'demo') {
+        const base = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+        CONFIG = Object.assign({}, base);
+        CONFIG.theme = "rose";
+        CONFIG.heroTitle = "Para a razão dos<br><em>meus melhores dias.</em>";
+        CONFIG.heroSub = "Cada segundo ao seu lado é um presente inestimável.";
+        CONFIG.visibleSections = Object.assign({}, base.visibleSections, {
+          timelineCounter: true,
+          weddingCounter: true,
+          player: true,
+          timelineStories: true,
+          memories: true,
+          letter: true,
+          quiz: true,
+          reasons: true,
+          promises: true
+        });
+        CONFIG.timelineStories = [
+          { date: "12 de Junho de 2025", title: "Primeiro Encontro", desc: "Aquele dia inesquecível em que nossos caminhos se cruzaram.", img: "" },
+          { date: "24 de Dezembro de 2025", title: "Primeiro Natal Juntos", desc: "Celebrando sob as luzes e o amor da nossa família.", img: "" }
+        ];
+        CONFIG.coupons = [
+          { emoji: "🍕", title: "Vale Rodízio de Pizza", desc: "Válido para uma noite cheia de fatias de pizza e carinho.", code: "PIZZA-LOVE", redeemed: false },
+          { emoji: "💆", title: "Vale Massagem Relaxante", desc: "Válido para 30 minutos de relaxamento total sem interrupções.", code: "MASS-LOVE", redeemed: false }
+        ];
+        CONFIG.quiz = [
+          { q: "Onde foi nosso primeiro encontro?", options: ["Parque", "Restaurante", "Cinema"], ans: 1 },
+          { q: "Qual a nossa comida favorita?", options: ["Pizza", "Sushi", "Hambúrguer"], ans: 0 }
+        ];
+        CONFIG.reasons = [
+          "Seu sorriso ilumina os meus dias mais cinzentos.",
+          "O seu abraço é o meu lugar seguro no mundo.",
+          "Sua determinação me inspira a ser alguém melhor."
+        ];
+        CONFIG.promises = [
+          { title: "Viajar pelo mundo", desc: "Conhecer pelo menos 5 países juntos nos próximos anos." },
+          { title: "Construir nosso lar", desc: "Criar um espaço aconchegante com a nossa cara." },
+          { title: "Ter um cachorrinho", desc: "Adotar um companheiro de quatro patas para nossa família." },
+          { title: "Nunca dormir brigados", desc: "Conversar e resolver qualquer desentendimento com paciência." }
+        ];
+
+        setTimeout(() => {
+          renderDOM();
+          setupWelcomeOverlay();
+          setupScrollReveal();
+          hideLoader();
+        }, 100);
+        return;
+      }
+
       // Aguarda o Firebase carregar e inicializar
       const checkFirebase = setInterval(() => {
         if (window.db) {
