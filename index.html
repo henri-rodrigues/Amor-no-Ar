@@ -242,6 +242,14 @@
       text-align: left;
     }
 
+    .form-helper {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.35rem;
+      line-height: 1.4;
+      font-style: italic;
+    }
+
     .form-group label {
       display: block;
       font-family: 'DM Mono', monospace;
@@ -1123,167 +1131,205 @@
                 <option value="neon">Amor Neon (Preto e Glowing Magenta/Ciano)</option>
                 <option value="vintage">Carta Vintage (Papel Envelhecido e Carmesim)</option>
               </select>
+              <div class="form-helper">Escolha o estilo e as cores que mais combinam com a história do casal.</div>
             </div>
             <div class="form-group">
-              <label for="edit-hero-title">Título Hero (HTML/Itálico permitido)</label>
+              <label for="edit-hero-title">Título de Abertura (Mensagem Principal)</label>
               <input type="text" id="edit-hero-title" placeholder="Para a razão dos<br><em>meus melhores dias.</em>">
+              <div class="form-helper">A frase principal que aparece no início do site. Dica: use <code>&lt;em&gt;texto&lt;/em&gt;</code> para deixar em itálico e <code>&lt;br&gt;</code> para pular de linha. Exemplo: Para o amor da<br>minha vida <em>inteira</em>.</div>
             </div>
             <div class="form-group">
-              <label for="edit-hero-sub">Subtítulo Hero</label>
+              <label for="edit-hero-sub">Subtítulo de Abertura (Frase curta)</label>
               <input type="text" id="edit-hero-sub" placeholder='"Cada momento contigo é uma memória que carrego para sempre."'>
+              <div class="form-helper">Uma frase romântica ou citação curta de efeito que apoia o título.</div>
             </div>
             <div class="form-group">
-              <label for="edit-quote-1">Frase de Amor 1</label>
+              <label for="edit-quote-1">Primeira Citação Romântica</label>
               <textarea id="edit-quote-1" rows="2" placeholder="Amar é encontrar em outro ser a própria razão de existir."></textarea>
+              <div class="form-helper">Uma mensagem bonita que aparecerá em destaque na seção de fotos.</div>
             </div>
             <div class="form-group">
-              <label for="edit-quote-1-author">Autor Frase 1</label>
+              <label for="edit-quote-1-author">Autor da Primeira Citação</label>
               <input type="text" id="edit-quote-1-author" placeholder="Drummond">
+              <div class="form-helper">Quem escreveu a frase acima. Deixe em branco se for autoral.</div>
             </div>
             <div class="form-group">
-              <label for="edit-quote-2">Frase de Amor 2</label>
+              <label for="edit-quote-2">Segunda Citação Romântica</label>
               <textarea id="edit-quote-2" rows="2" placeholder="Você é o lar que eu nunca soube que estava procurando."></textarea>
+              <div class="form-helper">Outra mensagem especial de transição que aparecerá ao final das fotos.</div>
             </div>
             <div class="form-group">
-              <label for="edit-quote-2-author">Autor Frase 2</label>
+              <label for="edit-quote-2-author">Autor da Segunda Citação</label>
               <input type="text" id="edit-quote-2-author" placeholder="Anônimo">
+              <div class="form-helper">Autor da frase acima. Deixe em branco se for autoral.</div>
             </div>
           </div>
 
           <!-- 3.1.5. Aba Módulos -->
           <div class="editor-tab-content" id="edit-modules">
             <h4 class="editor-subheader">Seções Visíveis no Site</h4>
-            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Marque as seções que você deseja exibir na página de amor final. Seções desmarcadas serão totalmente ocultadas.</p>
+            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Escolha quais seções você quer exibir no site do casal. Desmarque as seções que prefere não usar.</p>
             
             <div style="display: flex; flex-direction: column; gap: 1rem; background: rgba(255,255,255,0.02); padding: 1.5rem; border-radius: 14px; border: 1px solid rgba(255,255,255,0.04);">
               <div style="display:flex; align-items:center; gap:0.75rem;">
                 <input type="checkbox" id="show-sec-timelineCounter" style="width:auto; cursor:pointer;" checked>
                 <label for="show-sec-timelineCounter" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Contador Progressivo (Tempo de Namoro)</label>
               </div>
+              <div class="form-helper" style="margin-left: 2rem; margin-top:-0.5rem; margin-bottom:0.5rem">Mostra há quantos anos, meses, dias, horas e minutos vocês estão juntos.</div>
+
               <div style="display:flex; align-items:center; gap:0.75rem;">
                 <input type="checkbox" id="show-sec-weddingCounter" style="width:auto; cursor:pointer;" checked>
                 <label for="show-sec-weddingCounter" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Contador Regressivo (Tempo para o Casamento)</label>
               </div>
+              <div class="form-helper" style="margin-left: 2rem; margin-top:-0.5rem; margin-bottom:0.5rem">Contagem regressiva em tempo real para a data do casamento ou outro dia especial.</div>
+
               <div style="display:flex; align-items:center; gap:0.75rem;">
                 <input type="checkbox" id="show-sec-player" style="width:auto; cursor:pointer;" checked>
                 <label for="show-sec-player" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Player de Música</label>
               </div>
+              <div class="form-helper" style="margin-left: 2rem; margin-top:-0.5rem; margin-bottom:0.5rem">Adiciona uma trilha sonora especial com controle de reprodução e disco de vinil giratório.</div>
+
               <div style="display:flex; align-items:center; gap:0.75rem;">
                 <input type="checkbox" id="show-sec-memories" style="width:auto; cursor:pointer;" checked>
                 <label for="show-sec-memories" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Nossas Memórias (Fotos Polaroid)</label>
               </div>
+              <div class="form-helper" style="margin-left: 2rem; margin-top:-0.5rem; margin-bottom:0.5rem">Grade de fotos estilo Polaroid que expandem ao clicar para ler legendas de amor detalhadas.</div>
+
               <div style="display:flex; align-items:center; gap:0.75rem;">
                 <input type="checkbox" id="show-sec-timelineStories" style="width:auto; cursor:pointer;" checked>
                 <label for="show-sec-timelineStories" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Linha do Tempo (Nossa História / Marcos)</label>
               </div>
+              <div class="form-helper" style="margin-left: 2rem; margin-top:-0.5rem; margin-bottom:0.5rem">Linha do tempo vertical contando momentos importantes (ex: primeiro beijo, primeiro encontro).</div>
+
               <div style="display:flex; align-items:center; gap:0.75rem;">
                 <input type="checkbox" id="show-sec-letter" style="width:auto; cursor:pointer;" checked>
                 <label for="show-sec-letter" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Carta Secreta</label>
               </div>
+              <div class="form-helper" style="margin-left: 2rem; margin-top:-0.5rem; margin-bottom:0.5rem">Um envelope digital interativo com efeito de digitação lenta para sua carta romântica.</div>
+
               <div style="display:flex; align-items:center; gap:0.75rem;">
                 <input type="checkbox" id="show-sec-quiz" style="width:auto; cursor:pointer;" checked>
                 <label for="show-sec-quiz" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Quiz do Casal</label>
               </div>
+              <div class="form-helper" style="margin-left: 2rem; margin-top:-0.5rem; margin-bottom:0.5rem">Um minijogo interativo com perguntas de multipla escolha sobre o casal.</div>
+
               <div style="display:flex; align-items:center; gap:0.75rem;">
                 <input type="checkbox" id="show-sec-reasons" style="width:auto; cursor:pointer;" checked>
                 <label for="show-sec-reasons" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Razões Pelas Quais Eu Te Amo</label>
               </div>
+              <div class="form-helper" style="margin-left: 2rem; margin-top:-0.5rem; margin-bottom:0.5rem">Um gerador de motivos românticos. O parceiro clica no botão e lê uma razão aleatória.</div>
+
               <div style="display:flex; align-items:center; gap:0.75rem;">
                 <input type="checkbox" id="show-sec-promises" style="width:auto; cursor:pointer;" checked>
                 <label for="show-sec-promises" style="margin:0; text-transform:none; font-size:0.85rem; color: var(--cream); cursor:pointer;">Sonhos & Promessas (Dream Board)</label>
               </div>
+              <div class="form-helper" style="margin-left: 2rem; margin-top:-0.5rem;">Mural de metas e planos que vocês querem conquistar juntos no futuro.</div>
             </div>
           </div>
 
           <!-- 3.2. Aba Datas -->
           <div class="editor-tab-content" id="edit-dates">
-            <h4 class="editor-subheader">Início do Namoro (Progressivo)</h4>
+            <h4 class="editor-subheader">Início do Namoro / Relação (Progressivo)</h4>
+            <div class="form-helper" style="margin-top:-0.8rem; margin-bottom:1.5rem">Indique quando a história de vocês começou para iniciar o contador automático.</div>
             <div class="form-group-row">
               <div class="form-group">
-                <label for="edit-start-date">Data e Hora ISO</label>
+                <label for="edit-start-date">Escolha a Data e Hora de Início</label>
                 <input type="datetime-local" id="edit-start-date">
+                <div class="form-helper">Clique no ícone de calendário para selecionar com facilidade.</div>
               </div>
               <div class="form-group">
-                <label for="edit-start-label">Texto da Data (Exibido)</label>
+                <label for="edit-start-label">Texto da Data Formatada (Exibido)</label>
                 <input type="text" id="edit-start-label" placeholder="28 de maio de 2025 · 21h48">
+                <div class="form-helper">Este campo é preenchido automaticamente de forma bonita ao escolher a data.</div>
               </div>
             </div>
             <div class="form-group">
-              <label for="edit-start-lead">Texto de Apoio (Início)</label>
+              <label for="edit-start-lead">Mensagem de Apoio (Início)</label>
               <textarea id="edit-start-lead" rows="2" placeholder="Naquele momento, sem saber ao certo, você mudou o rumo de toda a minha vida."></textarea>
+              <div class="form-helper">Uma pequena reflexão para aparecer acima do cronômetro progressivo.</div>
             </div>
 
-            <h4 class="editor-subheader" style="margin-top:2rem">Até o Casamento (Regressivo)</h4>
+            <h4 class="editor-subheader" style="margin-top:2.5rem">Até o Casamento / Evento (Regressivo)</h4>
+            <div class="form-helper" style="margin-top:-0.8rem; margin-bottom:1.5rem">Defina a data de um grande marco futuro (casamento, noivado, próxima viagem) para iniciar a contagem regressiva.</div>
             <div class="form-group-row">
               <div class="form-group">
-                <label for="edit-wedding-date">Data e Hora ISO</label>
+                <label for="edit-wedding-date">Escolha a Data e Hora Futura</label>
                 <input type="datetime-local" id="edit-wedding-date">
+                <div class="form-helper">Clique no ícone de calendário para selecionar.</div>
               </div>
               <div class="form-group">
-                <label for="edit-wedding-label">Texto da Data (Exibido)</label>
+                <label for="edit-wedding-label">Texto da Data Formatada (Exibido)</label>
                 <input type="text" id="edit-wedding-label" placeholder="10 de março de 2029 · 10h00">
+                <div class="form-helper">Este campo é preenchido automaticamente ao escolher a data.</div>
               </div>
             </div>
             <div class="form-group">
-              <label for="edit-wedding-lead">Texto de Apoio (Casamento)</label>
+              <label for="edit-wedding-lead">Mensagem de Apoio (Contagem Regressiva)</label>
               <textarea id="edit-wedding-lead" rows="2" placeholder="Cada segundo que passa é um segundo mais perto do dia em que vou te chamar de esposa."></textarea>
+              <div class="form-helper">Frase romântica inspiradora sobre a ansiedade para o dia especial.</div>
             </div>
             <div class="form-group">
-              <label for="edit-wedding-msg">Mensagem Especial ao Chegar a Zero</label>
+              <label for="edit-wedding-msg">Mensagem de Comemoração ao Zerar</label>
               <input type="text" id="edit-wedding-msg" placeholder="✨ Chegou o grande dia! Eu te amo para sempre. ✨">
+              <div class="form-helper">O texto especial que substituirá o contador na tela no instante em que a data chegar.</div>
             </div>
           </div>
 
           <!-- 3.3. Aba Música -->
           <div class="editor-tab-content" id="edit-music">
             <div class="form-group">
-              <label for="edit-music-mode">Modo de Player de Música</label>
+              <label for="edit-music-mode">Como você deseja adicionar música?</label>
               <select id="edit-music-mode">
-                <option value="custom">Player Customizado (MP3 local/URL)</option>
-                <option value="spotify">Spotify Embed (Iframe Integrado)</option>
+                <option value="custom">Player de Música Clássico (Link de Áudio MP3 ou padrão)</option>
+                <option value="spotify">Player Integrado do Spotify (Widget Incorporado)</option>
               </select>
+              <div class="form-helper">O player clássico roda o som diretamente do site com disco de vinil interativo. O player Spotify exibe o widget nativo do Spotify.</div>
             </div>
 
             <div class="form-group" id="spotify-field-group" style="display:none">
               <label for="edit-spotify-url">Link da Música ou Álbum do Spotify</label>
-              <input type="text" id="edit-spotify-url" placeholder="https://open.spotify.com/track/587Lf3LyhC8smoFnNIQtn3">
-              <small style="color:var(--muted); font-size:0.75rem; display:block; margin-top:0.4rem">Copie o link direto da música no Spotify (funciona com links internacionais ou normais).</small>
+              <input type="text" id="edit-spotify-url" placeholder="https://open.spotify.com/track/4PTG3Z6ehGkBF3zIqYQGSy">
+              <div class="form-helper">Para obter o link: abra o aplicativo do Spotify, selecione a música, clique em "Compartilhar" e escolha "Copiar link da música". Depois, cole aqui.</div>
             </div>
 
             <div id="custom-player-fields">
               <div class="form-group">
-                <label for="edit-music-title">Nome da Música</label>
+                <label for="edit-music-title">Título da Música</label>
                 <input type="text" id="edit-music-title" placeholder="Nocturne in E-Flat Major">
+                <div class="form-helper">Nome da canção que aparecerá na tela do player clássico.</div>
               </div>
               <div class="form-group">
                 <label for="edit-music-artist">Nome do Artista</label>
                 <input type="text" id="edit-music-artist" placeholder="Frédéric Chopin">
+                <div class="form-helper">Nome do cantor ou banda.</div>
               </div>
               <div class="form-group">
-                <label for="edit-music-audio">Link Direto do Áudio (MP3)</label>
-                <input type="text" id="edit-music-audio" placeholder="https://upload.wikimedia.org/.../musica.mp3">
-                <small style="color:var(--muted); font-size:0.75rem; display:block; margin-top:0.4rem">Insira uma URL pública direta para o arquivo .mp3.</small>
+                <label for="edit-music-audio">Link Direto da Música (.mp3)</label>
+                <input type="text" id="edit-music-audio" placeholder="https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3d/Fr%C3%A9d%C3%A9ric_Chopin_-_Nocturne_in_E_flat_major%2C_Op._9_no._2.ogg/Fr%C3%A9d%C3%A9ric_Chopin_-_Nocturne_in_E_flat_major%2C_Op._9_no._2.ogg.mp3">
+                <div class="form-helper">Insira uma URL pública direta terminando em .mp3. Deixe o link padrão se preferir a canção instrumental clássica de Chopin.</div>
               </div>
               <div class="form-group">
-                <label>Capa do Álbum (Upload ou URL)</label>
+                <label>Foto da Capa da Música (Exibida no centro do vinil)</label>
                 <div style="display:flex; gap:0.5rem">
-                  <input type="text" id="edit-music-cover" placeholder="https://exemplo.com/capa.jpg" style="flex:1">
+                  <input type="text" id="edit-music-cover" placeholder="URL da imagem da capa" style="flex:1">
                   <input type="file" id="upload-music-cover" accept="image/*" style="display:none">
-                  <button type="button" class="btn btn-outline" style="border-radius:10px" onclick="document.getElementById('upload-music-cover').click(); return false;">Upload</button>
+                  <button type="button" class="btn btn-outline" style="border-radius:10px; font-size:0.75rem;" onclick="document.getElementById('upload-music-cover').click(); return false;">Fazer Upload</button>
                 </div>
+                <div class="form-helper">Recomendamos uma foto quadrada de vocês ou da capa do álbum original.</div>
               </div>
             </div>
 
             <div class="form-group" style="margin-top: 1.5rem; border-top: 1px solid rgba(212, 165, 165, 0.15); padding-top: 1.5rem;">
-              <label for="edit-bg-music-url">Música de Fundo (MP3 tocado ao abrir)</label>
+              <label for="edit-bg-music-url">Música de Fundo Automática (Toca ao carregar)</label>
               <input type="text" id="edit-bg-music-url" placeholder="https://upload.wikimedia.org/wikipedia/commons/0/0b/Beethoven_-_F%C3%BCr_Elise.mp3">
-              <small style="color:var(--muted); font-size:0.75rem; display:block; margin-top:0.4rem">Esta música toca automaticamente em segundo plano. Deixe em branco para usar a música de fundo padrão (Für Elise).</small>
+              <div class="form-helper">Esta melodia inicia suavemente assim que a página é aberta. Deixe como está para usar "Für Elise" de Beethoven, ou insira o link de outro .mp3.</div>
             </div>
           </div>
 
           <!-- 3.4. Aba Memórias -->
           <div class="editor-tab-content" id="edit-memories">
-            <h4 class="editor-subheader">Nossas Memórias (6 Fotos em estilo Polaroid)</h4>
+            <h4 class="editor-subheader">Mural de Fotos Polaroid (Exatamente 6 Fotos)</h4>
+            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Para criar o mural perfeito, preencha as 6 polaroids. Adicione fotos e legendas que descrevam momentos divertivos ou românticos de vocês.</p>
             <div id="memories-edit-fields-list">
               <!-- Renderizado dinamicamente -->
             </div>
@@ -1292,7 +1338,7 @@
           <!-- 3.4.5. Aba Linha do Tempo -->
           <div class="editor-tab-content" id="edit-timeline">
             <h4 class="editor-subheader">Marcos da Nossa História</h4>
-            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Crie uma linha do tempo dos momentos mais inesquecíveis de vocês. Adicione marcos com data, título, descrição e uma foto!</p>
+            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Conte a jornada do casal em ordem cronológica (ex: Primeiro Olhar, Início do Namoro, Nossa Primeira Viagem). Você pode adicionar quantos marcos desejar!</p>
             
             <div style="margin-bottom: 1.5rem;">
               <button type="button" class="btn btn-rose" id="add-timeline-item-btn" style="font-size: 0.75rem;">+ Adicionar Novo Marco</button>
@@ -1305,17 +1351,20 @@
 
           <!-- 3.5. Aba Carta & Quiz -->
           <div class="editor-tab-content" id="edit-letter">
-            <h4 class="editor-subheader">Carta Secreta</h4>
+            <h4 class="editor-subheader">Carta de Amor</h4>
             <div class="form-group">
-              <label for="edit-letter-text">Texto da Carta (Use \n para quebrar linha)</label>
+              <label for="edit-letter-text">Texto Completo da Carta</label>
               <textarea id="edit-letter-text" rows="8" placeholder="Escreva sua carta de amor com todo carinho aqui..."></textarea>
+              <div class="form-helper">Escreva livremente. Use quebras de linha normais para formatar parágrafos.</div>
             </div>
             <div class="form-group">
-              <label for="edit-letter-speed">Velocidade de Digitação (ms por letra)</label>
+              <label for="edit-letter-speed">Velocidade de Digitação (Efeito Máquina de Escrever)</label>
               <input type="number" id="edit-letter-speed" value="28" min="5" max="100">
+              <div class="form-helper">Tempo em milissegundos por caractere. Recomendado: 28. (Valores menores como 15 tornam a digitação mais rápida).</div>
             </div>
 
-            <h4 class="editor-subheader" style="margin-top:2.5rem">Quiz do Casal (Perguntas)</h4>
+            <h4 class="editor-subheader" style="margin-top:2.5rem">Jogo: Quiz do Casal (Exatamente 3 perguntas)</h4>
+            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Teste o conhecimento do seu parceiro. Insira perguntas divertidas sobre o namoro ou curiosidades de vocês.</p>
             <div id="quiz-edit-fields-list">
               <!-- Renderizado dinamicamente -->
             </div>
@@ -1323,8 +1372,8 @@
 
           <!-- 3.5.5. Aba Cupons -->
           <div class="editor-tab-content" id="edit-coupons">
-            <h4 class="editor-subheader">Nossos Cupons de Amor</h4>
-            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Crie cupons de amor dinâmicos que seu parceiro poderá resgatar na página. Personalize com um emoji de ícone, título e descrição!</p>
+            <h4 class="editor-subheader">Cupons e Vales de Amor</h4>
+            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Crie presentes divertidos para o seu amor resgatar a qualquer momento (ex: "Vale Massagem", "Vale Rodízio de Sushi"). Cada cupom pode ser resgatado apenas uma vez.</p>
             
             <div style="margin-bottom: 1.5rem;">
               <button type="button" class="btn btn-rose" id="add-coupon-item-btn" style="font-size: 0.75rem;">+ Adicionar Novo Cupom</button>
@@ -1341,9 +1390,11 @@
             <div class="form-group">
               <label for="edit-reasons-text">Lista de Motivos (Um por linha)</label>
               <textarea id="edit-reasons-text" rows="8" placeholder="Amo o seu sorriso logo de manhã...&#10;Amo o som da sua risada boba...&#10;Amo como você me apoia..."></textarea>
+              <div class="form-helper">Escreva quantos motivos quiser. Cada vez que a pessoa clicar no botão de "Descobrir Motivo" na página, um motivo desta lista será exibido de forma aleatória.</div>
             </div>
 
-            <h4 class="editor-subheader" style="margin-top:2.5rem">Nossos Sonhos & Promessas (Dream Board)</h4>
+            <h4 class="editor-subheader" style="margin-top:2.5rem">Sonhos & Promessas Futuras (Exatamente 4 Sonhos)</h4>
+            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem;">Metas e aventuras futuras que pretendem realizar ao longo dos anos.</p>
             <div id="promises-edit-fields-list">
               <!-- Renderizado dinamicamente -->
             </div>
@@ -2241,6 +2292,29 @@
       showToast("Novo cupom adicionado! Preencha os detalhes.");
     });
 
+    // Formatar datas automaticamente em português para facilitar criadores leigos ao selecionar datas
+    document.getElementById('edit-start-date').addEventListener('change', (e) => {
+      const val = e.target.value;
+      if (val) {
+        const date = new Date(val);
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        const time = date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }).replace(':', 'h');
+        const formatted = `${date.toLocaleDateString('pt-BR', options)} · ${time}`;
+        document.getElementById('edit-start-label').value = formatted;
+      }
+    });
+
+    document.getElementById('edit-wedding-date').addEventListener('change', (e) => {
+      const val = e.target.value;
+      if (val) {
+        const date = new Date(val);
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        const time = date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }).replace(':', 'h');
+        const formatted = `${date.toLocaleDateString('pt-BR', options)} · ${time}`;
+        document.getElementById('edit-wedding-label').value = formatted;
+      }
+    });
+
     window.openEditor = function(pageId) {
       const page = localPagesList.find(p => p.id === pageId);
       if (page) {
@@ -2322,26 +2396,30 @@
         card.innerHTML = `
           <div class="mem-edit-card-title">Foto Polaroid ${idx + 1}</div>
           <div class="form-group">
-            <label>Foto (Upload ou URL)</label>
+            <label>Foto (Upload ou Link da Web)</label>
             <div style="display:flex; gap:0.5rem">
-              <input type="text" class="edit-mem-img" id="edit-mem-img-${idx}" value="${mem.img}" style="flex:1">
+              <input type="text" class="edit-mem-img" id="edit-mem-img-${idx}" value="${mem.img}" placeholder="Arraste ou clique no botão Upload ao lado para enviar" style="flex:1">
               <input type="file" class="upload-mem-img" id="upload-mem-img-${idx}" accept="image/*" style="display:none">
-              <button type="button" class="btn btn-outline" style="border-radius:10px" onclick="document.getElementById('upload-mem-img-${idx}').click(); return false;">Upload</button>
+              <button type="button" class="btn btn-outline" style="border-radius:10px; font-size:0.75rem;" onclick="document.getElementById('upload-mem-img-${idx}').click(); return false;">Upload</button>
             </div>
+            <div class="form-helper">Selecione uma foto especial de vocês (será ajustada automaticamente para não pesar).</div>
           </div>
           <div class="form-group-row">
             <div class="form-group">
               <label>Legenda Curta</label>
-              <input type="text" class="edit-mem-caption" data-idx="${idx}" value="${mem.caption}">
+              <input type="text" class="edit-mem-caption" data-idx="${idx}" value="${mem.caption}" placeholder="Ex: Nosso primeiro sorvete juntos">
+              <div class="form-helper">Frase pequena para aparecer logo abaixo da foto polaroid.</div>
             </div>
             <div class="form-group">
-              <label>Data</label>
-              <input type="text" class="edit-mem-date" data-idx="${idx}" value="${mem.date}">
+              <label>Data ou Época</label>
+              <input type="text" class="edit-mem-date" data-idx="${idx}" value="${mem.date}" placeholder="Ex: 15 de Junho de 2025">
+              <div class="form-helper">Quando essa foto foi tirada?</div>
             </div>
           </div>
           <div class="form-group" style="margin-bottom:0">
-            <label>Mensagem de Amor (Lightbox)</label>
-            <input type="text" class="edit-mem-desc" data-idx="${idx}" value="${mem.desc}">
+            <label>Mensagem de Amor (Aparece ao clicar na foto)</label>
+            <input type="text" class="edit-mem-desc" data-idx="${idx}" value="${mem.desc}" placeholder="Ex: Lembra que o sorvete derreteu na sua mão e rimos a tarde toda?">
+            <div class="form-helper">Texto romântico detalhado que surge na tela quando o parceiro clica na foto.</div>
           </div>
         `;
         container.appendChild(card);
@@ -2369,7 +2447,7 @@
       }
       
       if (activeEditorConfig.timelineStories.length === 0) {
-        container.innerHTML = '<p style="color:var(--muted); font-style:italic; font-size:0.8rem; padding:1rem 0;">Nenhum marco adicionado ainda.</p>';
+        container.innerHTML = '<p style="color:var(--muted); font-style:italic; font-size:0.8rem; padding:1rem 0;">Nenhum marco adicionado ainda. Clique em "+ Adicionar Novo Marco" acima.</p>';
         return;
       }
 
@@ -2379,29 +2457,33 @@
         card.innerHTML = `
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.8rem;">
             <div class="mem-edit-card-title" style="margin:0;">Marco ${idx + 1}</div>
-            <button type="button" class="btn btn-danger-outline" onclick="deleteTimelineItem(${idx}); return false;" style="font-size:0.6rem; padding:0.25rem 0.6rem;">✕ Excluir</button>
+            <button type="button" class="btn btn-danger-outline" onclick="deleteTimelineItem(${idx}); return false;" style="font-size:0.6rem; padding:0.25rem 0.6rem;">✕ Excluir Marco</button>
           </div>
           <div class="form-group-row">
             <div class="form-group">
-              <label>Título do Marco</label>
-              <input type="text" class="edit-timeline-title" data-idx="${idx}" value="${story.title || ''}">
+              <label>Título do Acontecimento</label>
+              <input type="text" class="edit-timeline-title" data-idx="${idx}" value="${story.title || ''}" placeholder="Ex: Nosso Primeiro Beijo">
+              <div class="form-helper">O nome deste evento marcante.</div>
             </div>
             <div class="form-group">
-              <label>Data (Exibida)</label>
-              <input type="text" class="edit-timeline-date" data-idx="${idx}" value="${story.date || ''}" placeholder="Ex: 12/06/2025">
+              <label>Data Exibida</label>
+              <input type="text" class="edit-timeline-date" data-idx="${idx}" value="${story.date || ''}" placeholder="Ex: 12 de Junho de 2025">
+              <div class="form-helper">Quando este marco aconteceu.</div>
             </div>
           </div>
           <div class="form-group">
-            <label>Descrição do Acontecimento</label>
-            <textarea class="edit-timeline-desc" data-idx="${idx}" rows="2">${story.desc || ''}</textarea>
+            <label>Como foi esse dia (Breve relato)</label>
+            <textarea class="edit-timeline-desc" data-idx="${idx}" rows="2" placeholder="Ex: Foi depois daquele cinema, no portão da sua casa debaixo de uma chuva fina. Inesquecível!">${story.desc || ''}</textarea>
+            <div class="form-helper">Conte o que tornou esse dia inesquecível.</div>
           </div>
           <div class="form-group" style="margin-bottom:0">
-            <label>Foto do Marco (Upload ou URL)</label>
+            <label>Foto do Acontecimento (Upload ou Link da Web)</label>
             <div style="display:flex; gap:0.5rem">
-              <input type="text" class="edit-timeline-img" id="edit-timeline-img-${idx}" value="${story.img || ''}" style="flex:1">
+              <input type="text" class="edit-timeline-img" id="edit-timeline-img-${idx}" value="${story.img || ''}" placeholder="Arraste ou clique no botão Upload ao lado para enviar" style="flex:1">
               <input type="file" class="upload-timeline-img" id="upload-timeline-img-${idx}" accept="image/*" style="display:none">
               <button type="button" class="btn btn-outline" style="border-radius:10px; font-size:0.65rem;" onclick="document.getElementById('upload-timeline-img-${idx}').click(); return false;">Upload</button>
             </div>
+            <div class="form-helper">Escolha uma foto que represente este momento especial.</div>
           </div>
         `;
         container.appendChild(card);
@@ -2435,7 +2517,7 @@
       }
       
       if (activeEditorConfig.coupons.length === 0) {
-        container.innerHTML = '<p style="color:var(--muted); font-style:italic; font-size:0.8rem; padding:1rem 0;">Nenhum cupom adicionado ainda.</p>';
+        container.innerHTML = '<p style="color:var(--muted); font-style:italic; font-size:0.8rem; padding:1rem 0;">Nenhum cupom adicionado ainda. Clique em "+ Adicionar Novo Cupom" acima.</p>';
         return;
       }
 
@@ -2445,21 +2527,24 @@
         card.innerHTML = `
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.8rem;">
             <div class="quiz-edit-card-title" style="margin:0;">Cupom ${idx + 1}</div>
-            <button type="button" class="btn btn-danger-outline" onclick="deleteCouponItem(${idx}); return false;" style="font-size:0.6rem; padding:0.25rem 0.6rem;">✕ Excluir</button>
+            <button type="button" class="btn btn-danger-outline" onclick="deleteCouponItem(${idx}); return false;" style="font-size:0.6rem; padding:0.25rem 0.6rem;">✕ Excluir Cupom</button>
           </div>
           <div class="form-group-row">
             <div class="form-group">
-              <label>Emoji / Ícone</label>
-              <input type="text" class="edit-coupon-icon" data-idx="${idx}" value="${cp.icon || '🎁'}" placeholder="Ex: 🧸">
+              <label>Emoji de Ícone</label>
+              <input type="text" class="edit-coupon-icon" data-idx="${idx}" value="${cp.icon || '🎁'}" placeholder="Ex: 🍿">
+              <div class="form-helper">Escolha um emoji que lembre o presente.</div>
             </div>
             <div class="form-group">
-              <label>Título do Cupom</label>
-              <input type="text" class="edit-coupon-title" data-idx="${idx}" value="${cp.title || ''}">
+              <label>Título do Presente</label>
+              <input type="text" class="edit-coupon-title" data-idx="${idx}" value="${cp.title || ''}" placeholder="Ex: Vale uma Massagem Relaxante">
+              <div class="form-helper">O nome curto do cupom.</div>
             </div>
           </div>
           <div class="form-group" style="margin-bottom:0">
-            <label>Descrição do Cupom</label>
-            <input type="text" class="edit-coupon-desc" data-idx="${idx}" value="${cp.desc || ''}">
+            <label>O que está incluído no cupom</label>
+            <input type="text" class="edit-coupon-desc" data-idx="${idx}" value="${cp.desc || ''}" placeholder="Ex: Válido para 30 minutos de cafuné e preguiça sem limites.">
+            <div class="form-helper">Explique os detalhes do vale para seu amor.</div>
           </div>
         `;
         container.appendChild(card);
@@ -2482,20 +2567,22 @@
         card.innerHTML = `
           <div class="quiz-edit-card-title">Pergunta ${idx + 1}</div>
           <div class="form-group">
-            <label>Pergunta</label>
-            <input type="text" class="edit-quiz-q" data-idx="${idx}" value="${q.q}">
+            <label>Escreva a Pergunta</label>
+            <input type="text" class="edit-quiz-q" data-idx="${idx}" value="${q.q}" placeholder="Ex: Quem dorme mais rápido assistindo a um filme?">
+            <div class="form-helper">Crie uma pergunta interessante sobre vocês.</div>
           </div>
           <div class="form-group-row">
-            <div class="form-group"><label>Opção 1</label><input type="text" class="edit-quiz-opt-0" data-idx="${idx}" value="${q.a[0]}"></div>
-            <div class="form-group"><label>Opção 2</label><input type="text" class="edit-quiz-opt-1" data-idx="${idx}" value="${q.a[1]}"></div>
+            <div class="form-group"><label>Opção 1</label><input type="text" class="edit-quiz-opt-0" data-idx="${idx}" value="${q.a[0]}" placeholder="Ex: Eu"></div>
+            <div class="form-group"><label>Opção 2</label><input type="text" class="edit-quiz-opt-1" data-idx="${idx}" value="${q.a[1]}" placeholder="Ex: Você"></div>
           </div>
           <div class="form-group-row">
-            <div class="form-group"><label>Opção 3</label><input type="text" class="edit-quiz-opt-2" data-idx="${idx}" value="${q.a[2]}"></div>
-            <div class="form-group"><label>Opção 4</label><input type="text" class="edit-quiz-opt-3" data-idx="${idx}" value="${q.a[3]}"></div>
+            <div class="form-group"><label>Opção 3</label><input type="text" class="edit-quiz-opt-2" data-idx="${idx}" value="${q.a[2]}" placeholder="Ex: Ambos"></div>
+            <div class="form-group"><label>Opção 4</label><input type="text" class="edit-quiz-opt-3" data-idx="${idx}" value="${q.a[3]}" placeholder="Ex: Nenhum de nós"></div>
           </div>
           <div class="form-group" style="margin-bottom:0">
-            <label>Opção Correta (De 1 a 4)</label>
+            <label>Qual opção é a correta? (Digite o número de 1 a 4)</label>
             <input type="number" class="edit-quiz-correct" data-idx="${idx}" min="1" max="4" value="${q.correct + 1}">
+            <div class="form-helper">Se a resposta correta for "Você" (Opção 2), digite 2.</div>
           </div>
         `;
         container.appendChild(card);
@@ -2509,15 +2596,27 @@
         const card = document.createElement('div');
         card.className = 'quiz-edit-card';
         card.innerHTML = `
-          <div class="quiz-edit-card-title">Promessa ${idx + 1}</div>
+          <div class="quiz-edit-card-title">Sonho / Promessa ${idx + 1}</div>
           <div class="form-group-row">
-            <div class="form-group"><label>Emoji / Ícone</label><input type="text" class="edit-promise-badge" data-idx="${idx}" value="${pr.badge}"></div>
-            <div class="form-group"><label>Título</label><input type="text" class="edit-promise-title" data-idx="${idx}" value="${pr.title}"></div>
+            <div class="form-group">
+              <label>Emoji de Ícone</label>
+              <input type="text" class="edit-promise-badge" data-idx="${idx}" value="${pr.badge}" placeholder="Ex: ✈️">
+              <div class="form-helper">Um emoji que represente este sonho.</div>
+            </div>
+            <div class="form-group">
+              <label>Nome do Sonho</label>
+              <input type="text" class="edit-promise-title" data-idx="${idx}" value="${pr.title}" placeholder="Ex: Viajar Juntos para Paris">
+              <div class="form-helper">O título do sonho.</div>
+            </div>
           </div>
-          <div class="form-group"><label>Descrição</label><input type="text" class="edit-promise-desc" data-idx="${idx}" value="${pr.desc}"></div>
+          <div class="form-group">
+            <label>Detalhes do Sonho</label>
+            <input type="text" class="edit-promise-desc" data-idx="${idx}" value="${pr.desc}" placeholder="Ex: Tomar um café da manhã olhando para a Torre Eiffel.">
+            <div class="form-helper">Descreva o que querem fazer.</div>
+          </div>
           <div class="form-group" style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0">
-            <input type="checkbox" class="edit-promise-achieved" id="form-promise-achieved-${idx}" data-idx="${idx}" ${pr.achieved ? 'checked' : ''} style="width:auto">
-            <label for="form-promise-achieved-${idx}" style="margin:0; text-transform:none; font-size:0.75rem; color: var(--cream); cursor:pointer">Marcar como Alcançado</label>
+            <input type="checkbox" class="edit-promise-achieved" id="form-promise-achieved-${idx}" data-idx="${idx}" ${pr.achieved ? 'checked' : ''} style="width:auto; cursor:pointer;">
+            <label for="form-promise-achieved-${idx}" style="margin:0; text-transform:none; font-size:0.75rem; color: var(--cream); cursor:pointer">Já realizamos este sonho! 🎉</label>
           </div>
         `;
         container.appendChild(card);
