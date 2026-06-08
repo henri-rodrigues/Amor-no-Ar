@@ -352,48 +352,36 @@
     }
 
     .album-art {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #0f0a1c 0%, #050209 50%, #000000 100%);
-      border: 4px solid #140d24;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.05);
+      width: 200px;
+      height: 200px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #181818 0%, #282828 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
       margin: 0 auto 1.5rem;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      outline: 1px solid var(--glass-border);
+      transition: all 0.3s ease;
     }
 
     /* Vinyl center pinhole */
     .album-art::before {
-      content: '';
-      position: absolute;
-      width: 14px;
-      height: 14px;
-      background: var(--bg);
-      border-radius: 50%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 3;
-      border: 2px solid var(--gold);
-      box-shadow: 0 0 5px rgba(0,0,0,0.8);
+      display: none;
     }
 
     /* ── TROCAR IMAGEM: substitua o fundo por <img src="CAMINHO_DA_CAPA.jpg" ...> ── */
     .album-art-inner {
-      width: 80%;
-      height: 80%;
-      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      border: 2px solid #000;
     }
 
     .album-art-placeholder {
@@ -414,13 +402,9 @@
       color: rgba(212, 165, 165, 0.4);
     }
 
-    @keyframes rotateVinyl {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    .album-art.music-playing .album-art-inner {
-      animation: rotateVinyl 12s linear infinite;
+    .album-art.music-playing {
+      box-shadow: 0 15px 35px rgba(29, 185, 84, 0.25), 0 0 15px rgba(29, 185, 84, 0.1);
+      border-color: rgba(29, 185, 84, 0.4);
     }
 
     /* Visualizer styling */
@@ -443,7 +427,7 @@
     .visualizer-bar {
       width: 4px;
       height: 100%;
-      background: var(--rose);
+      background: #1db954;
       border-radius: 3px;
       transform-origin: bottom;
       transform: scaleY(0.2);
@@ -511,7 +495,7 @@
     .progress-bar-fill {
       height: 100%;
       border-radius: 2px;
-      background: #fff;
+      background: #1db954;
       width: 38%;
       transition: width 1s linear;
       position: relative;
@@ -573,9 +557,17 @@
     .play-btn {
       width: 52px;
       height: 52px;
-      background: #fff;
+      background: #1db954;
       border-radius: 50%;
       color: #000 !important;
+      box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .play-btn:hover {
+      background: #1ed760 !important;
+      transform: scale(1.08);
+      box-shadow: 0 6px 18px rgba(29, 185, 84, 0.5);
     }
 
     .play-btn svg {
@@ -1806,12 +1798,10 @@
         <div class="album-art">
           <div class="album-art-inner">
             <div class="album-art-placeholder">
-              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5" />
-                <circle cx="32" cy="32" r="10" stroke="currentColor" stroke-width="1.5" />
-                <circle cx="32" cy="32" r="3" fill="currentColor" />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width: 42px; height: 42px; color: rgba(255,255,255,0.3)">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 0v15m0-15l-10.5 3m0 0v15m0-15V9a3 3 0 00-3 3v8.25a3 3 0 003 3.75h.008a3 3 0 003-3.75V12a3 3 0 013-3h.008z" />
               </svg>
-              <p>Capa do álbum</p>
+              <p>Capa da Música</p>
             </div>
           </div>
         </div>
@@ -2428,12 +2418,10 @@
           } else {
             albumArtInner.innerHTML = `
           <div class="album-art-placeholder">
-            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="32" cy="32" r="10" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="32" cy="32" r="3" fill="currentColor"/>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width: 42px; height: 42px; color: rgba(255,255,255,0.3)">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 0v15m0-15l-10.5 3m0 0v15m0-15V9a3 3 0 00-3 3v8.25a3 3 0 003 3.75h.008a3 3 0 003-3.75V12a3 3 0 013-3h.008z" />
             </svg>
-            <p>Capa do álbum</p>
+            <p>Capa da Música</p>
           </div>
         `;
           }
