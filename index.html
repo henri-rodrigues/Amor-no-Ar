@@ -1650,6 +1650,17 @@ service cloud.firestore {
     const userMenuArea = document.getElementById('user-menu-area');
     const currentUserEmail = document.getElementById('current-user-email');
     
+    // Fetch User Info
+    async function fetchUserInfo(uid) {
+      if (!uid) return null;
+      try {
+        const doc = await window.db.collection('users').doc(uid).get();
+        return doc.exists ? doc.data() : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
     // Alertas Toast
     function showToast(text, type = 'success') {
       const toast = document.getElementById('toast');
@@ -2060,18 +2071,28 @@ service cloud.firestore {
       loadAllUsersAdmin();
     }
 
+    // Total real de usuários no Firestore
+    let totalRealUsers = 0;
+
     // ── ADMIN: Carregar TODAS as páginas do Firestore ──
     function loadAllPagesAdmin() {
       document.getElementById('admin-pages-container').innerHTML =
         '<p style="color:var(--muted); font-style:italic; text-align:center; padding:3rem">Carregando todas as páginas...</p>';
 
+      // Primeiro busca o total real de usuários cadastrados
+      window.db.collection('users').get().then(usersSnap => {
+        totalRealUsers = usersSnap.size;
+      }).catch(() => { totalRealUsers = 0; });
+
       window.db.collection('pages')
         .get()
-        .then(snapshot => {
+        .then(async snapshot => {
           allAdminPages = [];
-          snapshot.forEach(doc => {
-            allAdminPages.push({ id: doc.id, ...doc.data() });
-          });
+          for (const doc of snapshot.docs) {
+            const data = doc.data();
+            const userInfo = await fetchUserInfo(data.userId);
+            allAdminPages.push({ id: doc.id, ...data, userInfo });
+          }
           allAdminPages.sort((a, b) => {
             const ta = a.createdAt ? (a.createdAt.seconds || 0) : 0;
             const tb = b.createdAt ? (b.createdAt.seconds || 0) : 0;
@@ -2099,7 +2120,7 @@ service cloud.firestore {
         : pages;
 
       // Calcular estatísticas
-      const uniqueUsers = new Set(pages.map(p => p.userId)).size;
+      // stat-total-users usa o total REAL da coleção 'users' no Firestore
       const spotifyCount = pages.filter(p => p.config?.useSpotify).length;
       const todayStart = new Date(); todayStart.setHours(0,0,0,0);
       const todayCount = pages.filter(p => {
@@ -2108,7 +2129,7 @@ service cloud.firestore {
       }).length;
 
       document.getElementById('stat-total-pages').textContent = pages.length;
-      document.getElementById('stat-total-users').textContent = uniqueUsers;
+      document.getElementById('stat-total-users').textContent = totalRealUsers;
       document.getElementById('stat-spotify-pages').textContent = spotifyCount;
       document.getElementById('stat-today-pages').textContent = todayCount;
       document.getElementById('admin-pages-count').textContent = `${filtered.length} página${filtered.length !== 1 ? 's' : ''}`;
@@ -2129,15 +2150,19 @@ service cloud.firestore {
         const dateStr = page.createdAt
           ? new Date(page.createdAt.seconds * 1000).toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric' })
           : 'Data desconhecida';
-        const userInitial = (page.userId || '?').charAt(0).toUpperCase();
         const musicType = page.config?.useSpotify ? '🎵 Spotify' : '🎶 MP3';
+
+        // Use enriched userInfo if available
+        const ui = page.userInfo || {};
+        const avatarContent = ui.photoURL ? `<img src="${ui.photoURL}" class="admin-user-avatar"/>` : `<div class="admin-user-avatar">${(ui.displayName || page.userId || '?').charAt(0).toUpperCase()}</div>`;
+        const displayName = ui.displayName || ui.email || page.userId?.substring(0,22) + '...';
 
         const card = document.createElement('div');
         card.className = 'admin-page-card';
         card.innerHTML = `
           <div class="admin-user-info">
-            <div class="admin-user-avatar">${userInitial}</div>
-            <span class="admin-user-email" title="UID: ${page.userId}">${page.userId?.substring(0,22) || 'Usuário desconhecido'}...</span>
+            ${avatarContent}
+            <span class="admin-user-email" title="UID: ${page.userId}">${displayName}</span>
             <span style="margin-left:auto; font-family:'DM Mono',monospace; font-size:0.65rem; color:var(--muted)">${musicType}</span>
           </div>
           <h3 class="page-card-title">${title}</h3>
