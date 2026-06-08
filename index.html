@@ -863,6 +863,65 @@
       padding: 0.15rem 0.5rem;
       border-radius: 100px;
     }
+
+    /* ── COMPRA DE CRÉDITOS & MODAL ── */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(11, 8, 16, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 11000;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .modal.open {
+      display: flex;
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-content {
+      background: rgba(20, 12, 30, 0.95);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      width: 90%;
+      max-width: 480px;
+      position: relative;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .modal.open .modal-content {
+      transform: scale(1);
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.5rem;
+      font-size: 1.8rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .close-modal:hover {
+      color: var(--rose);
+    }
+
+    .admin-tab-btn.active {
+      color: var(--rose) !important;
+      border-bottom-color: var(--rose) !important;
+    }
   </style>
 
 </head>
@@ -945,6 +1004,17 @@
         </button>
       </div>
 
+      <!-- Banner de Créditos (Fase 1 - Manual PIX) -->
+      <div class="credits-card" id="credits-card-view" style="margin-bottom: 2rem; background: rgba(212, 165, 165, 0.04); border: 1px solid rgba(212, 165, 165, 0.1); padding: 1.2rem; border-radius: 16px; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 250px;">
+          <h4 style="font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--gold); margin-bottom: 0.3rem; letter-spacing: 0.05em;">🎟 Seus Créditos de Criação</h4>
+          <p style="font-size: 0.8rem; color: var(--muted); line-height: 1.4;">Você possui <span id="user-credits-display" style="color: var(--cream); font-weight: bold; font-family: 'DM Mono', monospace; font-size: 0.9rem;">0</span> créditos. Cada nova página criada consome 1 crédito.</p>
+        </div>
+        <button class="btn btn-rose" id="buy-credits-btn" style="font-size: 0.75rem; padding: 0.7rem 1.4rem; border-radius: 100px; display: inline-flex; align-items: center; gap: 0.4rem;">
+          🛒 Comprar Créditos (R$ 10)
+        </button>
+      </div>
+
       <div class="empty-state" id="empty-state-view" style="display:none">
         <div class="empty-state-heart">♥</div>
         <h3>Nenhuma página criada ainda</h3>
@@ -986,17 +1056,38 @@
         </div>
       </div>
 
-      <div class="admin-search">
-        <input type="text" id="admin-search-input" placeholder="🔍  Buscar por título ou e-mail do usuário...">
+      <!-- Abas Internas do Admin -->
+      <div class="admin-tabs" style="display:flex; gap:1rem; margin-bottom:2rem; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:0.5rem">
+        <button class="admin-tab-btn active" id="admin-tab-pages" style="background:none; border:none; color:var(--muted); font-family:'DM Mono',monospace; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; padding:0.5rem 1rem; cursor:pointer; border-bottom:2px solid transparent; transition:all 0.2s">Páginas</button>
+        <button class="admin-tab-btn" id="admin-tab-users" style="background:none; border:none; color:var(--muted); font-family:'DM Mono',monospace; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; padding:0.5rem 1rem; cursor:pointer; border-bottom:2px solid transparent; transition:all 0.2s">Usuários & Créditos</button>
       </div>
 
-      <div class="admin-section-title">
-        Todas as Páginas
-        <span class="admin-count-badge" id="admin-pages-count">0 páginas</span>
+      <!-- Conteúdo da Aba 1: Páginas -->
+      <div id="admin-pages-tab-content">
+        <div class="admin-search">
+          <input type="text" id="admin-search-input" placeholder="🔍  Buscar por título ou e-mail do usuário...">
+        </div>
+        <div class="admin-section-title">
+          Todas as Páginas
+          <span class="admin-count-badge" id="admin-pages-count">0 páginas</span>
+        </div>
+        <div class="pages-grid" id="admin-pages-container">
+          <!-- Renderizado dinamicamente -->
+        </div>
       </div>
 
-      <div class="pages-grid" id="admin-pages-container">
-        <!-- Renderizado dinamicamente -->
+      <!-- Conteúdo da Aba 2: Usuários e Créditos -->
+      <div id="admin-users-tab-content" style="display:none">
+        <div class="admin-search">
+          <input type="text" id="admin-users-search-input" placeholder="🔍  Buscar usuário por e-mail...">
+        </div>
+        <div class="admin-section-title">
+          Todos os Usuários
+          <span class="admin-count-badge" id="admin-users-count">0 usuários</span>
+        </div>
+        <div id="admin-users-list-container" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap:1.5rem">
+          <!-- Renderizado dinamicamente -->
+        </div>
       </div>
     </section>
 
@@ -1124,6 +1215,12 @@
                 </div>
               </div>
             </div>
+
+            <div class="form-group" style="margin-top: 1.5rem; border-top: 1px solid rgba(212, 165, 165, 0.15); padding-top: 1.5rem;">
+              <label for="edit-bg-music-url">Música de Fundo (MP3 tocado ao abrir)</label>
+              <input type="text" id="edit-bg-music-url" placeholder="https://upload.wikimedia.org/wikipedia/commons/0/0b/Beethoven_-_F%C3%BCr_Elise.mp3">
+              <small style="color:var(--muted); font-size:0.75rem; display:block; margin-top:0.4rem">Esta música toca automaticamente em segundo plano. Deixe em branco para usar a música de fundo padrão (Für Elise).</small>
+            </div>
           </div>
 
           <!-- 3.4. Aba Memórias -->
@@ -1175,6 +1272,40 @@
     </section>
   </main>
 
+  <!-- MODAL DE COMPRA DE CRÉDITOS -->
+  <div id="credits-modal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-content" style="max-width: 480px; text-align: center; padding: 2.5rem 2rem;">
+      <span class="close-modal" id="close-credits-btn">&times;</span>
+      
+      <div style="font-size: 2.5rem; margin-bottom: 1rem;">🎫</div>
+      <h3 style="font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--gold); margin-bottom: 0.5rem; letter-spacing: 0.05em;">Adquirir Créditos</h3>
+      <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin-bottom: 2rem;">
+        Cada crédito custa **R$ 10,00** e permite criar **1 nova página** que ficará ativa para sempre.
+      </p>
+
+      <!-- Instruções de PIX -->
+      <div style="background: rgba(255,255,255,0.03); border: 1px dashed rgba(212,165,165,0.2); padding: 1.5rem; border-radius: 16px; margin-bottom: 2rem;">
+        <h4 style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold); margin-bottom: 0.8rem;">Chave PIX (E-mail)</h4>
+        <div style="display:flex; gap:0.5rem; align-items:center; background: rgba(0,0,0,0.2); padding: 0.6rem 1rem; border-radius: 100px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 0.5rem;">
+          <span id="pix-key-text" style="font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--cream); flex: 1; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">henri.rodrigues552@gmail.com</span>
+          <button class="copy-btn" onclick="copyPixKey(); return false;" style="background:none; border:none; color:var(--gold); cursor:pointer;" title="Copiar Chave">
+            <svg style="width:16px; height:16px; fill:currentColor" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          </button>
+        </div>
+        <p style="font-size: 0.75rem; color: var(--muted); font-style: italic; margin: 0;" id="pix-beneficiary">Beneficiário: Henrique Rodrigues</p>
+      </div>
+
+      <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.5;">
+        Após realizar o pagamento de R$ 10, envie o comprovante pelo WhatsApp abaixo para a liberação imediata do seu crédito.
+      </p>
+
+      <a id="whatsapp-payment-btn" href="#" target="_blank" class="btn btn-rose" style="width:100%; justify-content:center; display:flex; align-items:center; gap:0.5rem; text-decoration:none;">
+        <svg style="width:18px; height:18px; fill:currentColor" viewBox="0 0 24 24"><path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.335 4.978L2 22l5.188-1.361a9.929 9.929 0 0 0 4.817 1.361h.005c5.507 0 9.99-4.478 9.99-9.985 0-2.67-1.037-5.178-2.92-7.062C17.197 3.069 14.69 2 12.012 2zm6.936 14.133c-.285.802-1.424 1.448-1.968 1.54-.499.085-1.153.154-3.344-.754-2.802-1.163-4.612-4.013-4.752-4.2a4.93 4.93 0 0 1-1.048-2.673c0-1.884.99-2.83 1.347-3.19.29-.294.639-.371.85-.371.16 0 .324.004.465.01.418.019.627.042.902.7.275.659.945 2.308 1.026 2.473.082.165.137.358.028.577-.11.22-.165.358-.33.55-.165.193-.349.33-.495.523-.16.208-.328.435-.14.757.188.322.835 1.378 1.791 2.229.957.85 1.76 1.115 2.074 1.246.314.13.498.11.687-.107.189-.217.81-.945 1.025-1.267.217-.323.435-.27.734-.16.299.11 1.9.897 2.226 1.062.327.165.545.244.627.385.083.14.083.812-.202 1.614z"/></svg>
+        Enviar Comprovante por WhatsApp
+      </a>
+    </div>
+  </div>
+
   <!-- Notificação Toast -->
   <div id="toast">
     <span id="toast-icon">✨</span>
@@ -1200,6 +1331,7 @@
       musicCoverUrl: "",
       useSpotify: false,
       spotifyTrackUrl: "https://open.spotify.com/track/4PTG3Z6ehGkBF3zIqYQGSy",
+      backgroundMusicUrl: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Beethoven_-_F%C3%BCr_Elise.mp3",
       quotes: [
         { text: "Amar é encontrar em outro ser a própria razão de existir.", author: "Drummond" },
         { text: "Você é o lar que eu nunca soube que estava procurando.", author: "Anônimo" }
@@ -1433,14 +1565,21 @@
     }
 
     // ═══════════════════════════════════════════════════
-    // ⚠️ CONFIGURE SEU EMAIL DE ADMINISTRADOR AQUI ⚠️
+    // ⚠️ CONFIGURAÇÕES DE PAGAMENTO (FASE 1) ⚠️
     // ═══════════════════════════════════════════════════
     const ADMIN_EMAIL = 'henri.rodrigues552@gmail.com'; // Email do administrador da plataforma
+    const PIX_KEY = 'henri.rodrigues552@gmail.com';     // Chave PIX exibida aos clientes
+    const PIX_NAME = 'Henrique Rodrigues';               // Nome do beneficiário PIX
+    const CONTACT_WHATSAPP = '5511999999999';            // Seu WhatsApp comercial (ex: 55 + DDD + Número)
     // ═══════════════════════════════════════════════════
 
     // Monitor do estado de autenticação
     let unsubscribePages = null;
+    let unsubscribeUser = null;
+    let currentUserCredits = 0;
     let allAdminPages = [];
+    let allAdminUsers = [];
+    
     const adminSection = document.getElementById('admin-section');
     const adminToggleBtn = document.getElementById('admin-toggle-btn');
     const adminBackBtn = document.getElementById('admin-back-btn');
@@ -1469,8 +1608,9 @@
           const isAdmin = user.email === ADMIN_EMAIL;
           adminToggleBtn.style.display = isAdmin ? 'inline-flex' : 'none';
 
-          // Escuta páginas do usuário logado
+          // Escuta páginas e créditos do usuário logado
           listenToUserPages(user.uid);
+          listenToUserCredits(user);
         } else {
           authSection.style.display = 'block';
           dashboardSection.style.display = 'none';
@@ -1483,18 +1623,86 @@
             unsubscribePages();
             unsubscribePages = null;
           }
+          if (unsubscribeUser) {
+            unsubscribeUser();
+            unsubscribeUser = null;
+          }
           loadingOverlay.style.opacity = '0';
           loadingOverlay.style.pointerEvents = 'none';
         }
       });
     }
 
+    // Escuta créditos do usuário logado em tempo real
+    function listenToUserCredits(user) {
+      if (unsubscribeUser) unsubscribeUser();
+      
+      const userRef = window.db.collection('users').doc(user.uid);
+      unsubscribeUser = userRef.onSnapshot(doc => {
+        if (doc.exists) {
+          currentUserCredits = doc.data().credits || 0;
+          updateCreditsUI();
+        } else {
+          // Cria o registro inicial do usuário com 0 créditos
+          userRef.set({
+            credits: 0,
+            email: user.email,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          }).then(() => {
+            currentUserCredits = 0;
+            updateCreditsUI();
+          }).catch(err => {
+            console.error("Erro ao criar perfil de usuário", err);
+          });
+        }
+      }, err => {
+        console.error("Erro ao escutar créditos", err);
+      });
+    }
+
+    function updateCreditsUI() {
+      const displayEl = document.getElementById('user-credits-display');
+      if (displayEl) {
+        displayEl.textContent = currentUserCredits;
+      }
+    }
+
+    // ── COMPRA DE CRÉDITOS & MODAL ──
+    function openCreditsModal() {
+      const modal = document.getElementById('credits-modal');
+      
+      // Personalizar informações do PIX dinamicamente
+      document.getElementById('pix-key-text').textContent = PIX_KEY;
+      document.getElementById('pix-beneficiary').textContent = `Beneficiário: ${PIX_NAME}`;
+      
+      const email = window.auth.currentUser ? window.auth.currentUser.email : '';
+      const text = encodeURIComponent(`Olá! Fiz o PIX de R$10 para a liberação de crédito na Página de Amor. Meu e-mail de login é: ${email}`);
+      const waLink = `https://wa.me/${CONTACT_WHATSAPP}?text=${text}`;
+      document.getElementById('whatsapp-payment-btn').href = waLink;
+      
+      modal.classList.add('open');
+    }
+
+    function closeCreditsModal() {
+      document.getElementById('credits-modal').classList.remove('open');
+    }
+
+    document.getElementById('buy-credits-btn').addEventListener('click', openCreditsModal);
+    document.getElementById('close-credits-btn').addEventListener('click', closeCreditsModal);
+
+    window.copyPixKey = function() {
+      const key = document.getElementById('pix-key-text').textContent;
+      navigator.clipboard.writeText(key)
+        .then(() => showToast("Chave PIX copiada!"))
+        .catch(err => showToast("Erro ao copiar chave.", "error"));
+    };
+
     // ── ADMIN: Alternar entre painel normal e admin ──
     adminToggleBtn.addEventListener('click', () => {
       dashboardSection.style.display = 'none';
       adminSection.style.display = 'block';
       editorSection.style.display = 'none';
-      loadAllPagesAdmin();
+      loadAdminData();
     });
 
     adminBackBtn.addEventListener('click', () => {
@@ -1502,9 +1710,39 @@
       dashboardSection.style.display = 'block';
     });
 
+    // Gerenciador de abas internas do Admin
+    const adminTabPages = document.getElementById('admin-tab-pages');
+    const adminTabUsers = document.getElementById('admin-tab-users');
+    const adminPagesTabContent = document.getElementById('admin-pages-tab-content');
+    const adminUsersTabContent = document.getElementById('admin-users-tab-content');
+
+    adminTabPages.addEventListener('click', () => {
+      adminTabPages.classList.add('active');
+      adminTabUsers.classList.remove('active');
+      adminPagesTabContent.style.display = 'block';
+      adminUsersTabContent.style.display = 'none';
+    });
+
+    adminTabUsers.addEventListener('click', () => {
+      adminTabUsers.classList.add('active');
+      adminTabPages.classList.remove('active');
+      adminPagesTabContent.style.display = 'none';
+      adminUsersTabContent.style.display = 'block';
+      loadAllUsersAdmin();
+    });
+
     adminSearchInput.addEventListener('input', () => {
       renderAdminPanel(allAdminPages);
     });
+
+    document.getElementById('admin-users-search-input').addEventListener('input', () => {
+      renderAdminUsers();
+    });
+
+    function loadAdminData() {
+      loadAllPagesAdmin();
+      loadAllUsersAdmin();
+    }
 
     // ── ADMIN: Carregar TODAS as páginas do Firestore ──
     function loadAllPagesAdmin() {
@@ -1618,6 +1856,101 @@
       }
     };
 
+    // ── ADMIN: Carregar TODOS os usuários do Firestore ──
+    function loadAllUsersAdmin() {
+      document.getElementById('admin-users-list-container').innerHTML =
+        '<p style="color:var(--muted); font-style:italic; text-align:center; padding:3rem">Carregando todos os usuários...</p>';
+
+      window.db.collection('users')
+        .get()
+        .then(snapshot => {
+          allAdminUsers = [];
+          snapshot.forEach(doc => {
+            allAdminUsers.push({ id: doc.id, ...doc.data() });
+          });
+          renderAdminUsers();
+        })
+        .catch(err => {
+          console.error("Erro ao buscar usuários admin", err);
+        });
+    }
+
+    // ── ADMIN: Renderizar lista de usuários e créditos ──
+    function renderAdminUsers() {
+      const searchVal = document.getElementById('admin-users-search-input').value.toLowerCase().trim();
+      const filtered = searchVal 
+        ? allAdminUsers.filter(u => (u.email || '').toLowerCase().includes(searchVal))
+        : allAdminUsers;
+
+      document.getElementById('admin-users-count').textContent = `${filtered.length} usuário${filtered.length !== 1 ? 's' : ''}`;
+
+      const container = document.getElementById('admin-users-list-container');
+      container.innerHTML = '';
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<p style="color:var(--muted); font-style:italic; text-align:center; padding:3rem">Nenhum usuário encontrado.</p>';
+        return;
+      }
+
+      filtered.forEach(user => {
+        const userInitial = (user.email || '?').charAt(0).toUpperCase();
+        const dateStr = user.createdAt 
+          ? new Date(user.createdAt.seconds * 1000).toLocaleDateString('pt-BR') 
+          : '—';
+        const credits = user.credits !== undefined ? user.credits : 0;
+
+        const card = document.createElement('div');
+        card.className = 'admin-page-card';
+        card.style.borderColor = 'rgba(255,255,255,0.06)';
+        card.innerHTML = `
+          <div class="admin-user-info" style="border:none; padding-bottom:0">
+            <div class="admin-user-avatar">${userInitial}</div>
+            <div style="flex:1">
+              <span class="admin-user-email" style="font-size:0.8rem">${user.email || 'Usuário Sem E-mail'}</span>
+              <p style="font-size:0.65rem; color:var(--muted); margin-top:0.1rem">Registrado em: ${dateStr}</p>
+            </div>
+          </div>
+          
+          <div style="background:rgba(0,0,0,0.15); border:1px solid rgba(255,255,255,0.03); border-radius:12px; padding:0.8rem 1.2rem; display:flex; align-items:center; justify-content:space-between">
+            <span style="font-size:0.75rem; color:var(--muted)">Créditos Disponíveis:</span>
+            <strong style="font-family:'DM Mono',monospace; font-size:1.1rem; color:var(--gold)">${credits}</strong>
+          </div>
+
+          <div class="card-actions" style="margin-top:0.5rem; border:none; padding-top:0">
+            <button class="btn btn-outline" onclick="changeUserCredits('${user.id}', 1); return false;" style="font-size:0.65rem; border-color:rgba(212,165,165,0.2)">+1 Crédito</button>
+            <button class="btn btn-danger-outline" onclick="changeUserCredits('${user.id}', -1); return false;" style="font-size:0.65rem; border-color:rgba(212,85,85,0.15)">-1 Crédito</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // ── ADMIN: Mudar créditos de um usuário ──
+    window.changeUserCredits = function(userId, amount) {
+      const user = allAdminUsers.find(u => u.id === userId);
+      if (!user) return;
+      const current = user.credits || 0;
+      const newValue = Math.max(0, current + amount);
+
+      window.db.collection('users').doc(userId).update({
+        credits: newValue
+      })
+      .then(() => {
+        showToast(`Créditos do usuário atualizados para ${newValue}!`);
+        user.credits = newValue;
+        renderAdminUsers();
+        // Se for o próprio admin logado, atualiza também a UI dele em tempo real
+        if (userId === window.auth.currentUser.uid) {
+          currentUserCredits = newValue;
+          updateCreditsUI();
+        }
+      })
+      .catch(err => {
+        console.error("Erro ao atualizar créditos admin", err);
+        showToast("Erro ao atualizar créditos.", "error");
+      });
+    };
+
     // ── FIREBASE FIRESTORE DATA LISTENING ──
     function listenToUserPages(uid) {
       if (unsubscribePages) unsubscribePages();
@@ -1728,6 +2061,13 @@
     const editorTitleLabel = document.getElementById('editor-title-label');
 
     const handleCreateClick = () => {
+      // Se for admin, ignora verificação de créditos
+      const isAdmin = window.auth.currentUser && window.auth.currentUser.email === ADMIN_EMAIL;
+      if (!isAdmin && currentUserCredits <= 0) {
+        openCreditsModal();
+        return;
+      }
+
       currentEditPageId = null;
       activeEditorConfig = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
       editorTitleLabel.textContent = "Criar Nova Página Romântica";
@@ -1782,6 +2122,7 @@
       document.getElementById('edit-music-artist').value = activeEditorConfig.musicArtist;
       document.getElementById('edit-music-audio').value = activeEditorConfig.musicAudioUrl;
       document.getElementById('edit-music-cover').value = activeEditorConfig.musicCoverUrl;
+      document.getElementById('edit-bg-music-url').value = activeEditorConfig.backgroundMusicUrl || '';
 
       // 4. Memórias (Dinâmicas)
       renderMemoriesFields();
@@ -1931,6 +2272,7 @@
       activeEditorConfig.musicArtist = document.getElementById('edit-music-artist').value;
       activeEditorConfig.musicAudioUrl = document.getElementById('edit-music-audio').value;
       activeEditorConfig.musicCoverUrl = document.getElementById('edit-music-cover').value;
+      activeEditorConfig.backgroundMusicUrl = document.getElementById('edit-bg-music-url').value;
 
       // Captura Memórias
       for (let i = 0; i < 6; i++) {
@@ -1990,12 +2332,28 @@
         });
       } else {
         // Criar Novo
+        const isAdmin = window.auth.currentUser && window.auth.currentUser.email === ADMIN_EMAIL;
+        if (!isAdmin && currentUserCredits <= 0) {
+          showToast("Você não possui créditos para criar páginas!", "error");
+          loadingOverlay.style.opacity = '0';
+          loadingOverlay.style.pointerEvents = 'none';
+          openCreditsModal();
+          return;
+        }
+
         window.db.collection('pages').add({
           userId: userId,
           config: activeEditorConfig,
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         })
         .then(() => {
+          // Se não for admin, consome 1 crédito no Firestore
+          if (!isAdmin) {
+            window.db.collection('users').doc(userId).update({
+              credits: firebase.firestore.FieldValue.increment(-1)
+            }).catch(e => console.error("Erro ao debitar crédito:", e));
+          }
+
           showToast("Sua página romântica foi publicada!");
           loadingOverlay.style.opacity = '0';
           loadingOverlay.style.pointerEvents = 'none';

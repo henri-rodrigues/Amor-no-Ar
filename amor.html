@@ -1551,6 +1551,7 @@
       <audio id="romantic-audio" preload="auto">
         <source id="audio-source" src="" type="audio/mpeg">
       </audio>
+      <audio id="bg-audio" loop preload="auto"></audio>
 
       <div class="spotify-card reveal reveal-delay-1">
 
@@ -1853,11 +1854,6 @@
     </div>
   </div>
 
-  <!-- BANNER PROMOCIONAL SAAS -->
-  <div class="promo-banner" style="position: fixed; bottom: 0; left: 0; right: 0; background: rgba(19, 14, 28, 0.92); border-top: 1px solid rgba(212, 165, 165, 0.15); padding: 0.8rem; text-align: center; font-size: 0.8rem; z-index: 10000; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 -4px 20px rgba(0,0,0,0.5); font-family: 'Inter', sans-serif;">
-    💝 Quer emocionar quem você ama com um presente assim? 
-    <a href="index.html" style="color: #D4A5A5; font-weight: 600; text-decoration: underline; margin-left: 0.4rem; letter-spacing: 0.02em;">Crie sua própria Página de Amor grátis!</a>
-  </div>
 
   <script>
     /* ════════════════════════════════════════
@@ -2008,6 +2004,7 @@
       musicCoverUrl: "",
       useSpotify: false,
       spotifyTrackUrl: "https://open.spotify.com/track/4PTG3Z6ehGkBF3zIqYQGSy",
+      backgroundMusicUrl: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Beethoven_-_F%C3%BCr_Elise.mp3",
       quotes: [
         { text: "Amar é encontrar em outro ser a própria razão de existir.", author: "Drummond" },
         { text: "Você é o lar que eu nunca soube que estava procurando.", author: "Anônimo" }
@@ -2435,6 +2432,7 @@
 
     (function () {
       const audio = document.getElementById('romantic-audio');
+      const bgAudio = document.getElementById('bg-audio');
       const playBtn = document.getElementById('play-btn');
       const playIcon = document.getElementById('play-icon');
       const pauseIcon = document.getElementById('pause-icon');
@@ -2443,6 +2441,12 @@
       const totalTimeEl = document.getElementById('total-time');
       const progressTrack = document.querySelector('.progress-bar-track');
       const albumArt = document.querySelector('.album-art');
+
+      // Inicializa fonte do áudio de fundo
+      if (bgAudio) {
+        bgAudio.src = CONFIG.backgroundMusicUrl || "https://upload.wikimedia.org/wikipedia/commons/0/0b/Beethoven_-_F%C3%BCr_Elise.mp3";
+        bgAudio.volume = 0.45; // Volume um pouco mais baixo para ficar de fundo
+      }
 
       function toMSS(s) {
         if (isNaN(s)) return '0:00';
@@ -2465,10 +2469,18 @@
 
       playBtn.addEventListener('click', () => {
         if (audio.paused) {
+          // Pausa a música de fundo ao dar play na principal
+          if (bgAudio && !bgAudio.paused) {
+            bgAudio.pause();
+          }
           audio.play().then(updatePlayerUI).catch(e => console.log(e));
         } else {
           audio.pause();
           updatePlayerUI();
+          // Retoma a música de fundo ao pausar a principal
+          if (bgAudio) {
+            bgAudio.play().catch(e => console.log("Erro ao retomar música de fundo:", e));
+          }
         }
       });
 
@@ -2491,6 +2503,10 @@
       audio.addEventListener('ended', () => {
         audio.currentTime = 0;
         updatePlayerUI();
+        // Retoma a música de fundo ao terminar a principal
+        if (bgAudio) {
+          bgAudio.play().catch(e => console.log("Erro ao retomar música de fundo:", e));
+        }
       });
 
       progressTrack.addEventListener('click', (e) => {
@@ -2503,33 +2519,31 @@
         }
       });
 
-      // Autoplay: só configurar se NÃO estiver em modo Firestore
-      // (Em modo Firestore, o play é feito pelo welcome overlay após carregar dados)
-      if (!_isFirestoreMode && !CONFIG.useSpotify) {
-        const startPlay = () => {
-          audio.play().then(updatePlayerUI).catch(e => console.log("Erro de autoplay:", e));
-          document.removeEventListener('click', startPlay);
-          document.removeEventListener('touchstart', startPlay);
-          document.removeEventListener('scroll', startPlay);
-          document.removeEventListener('pointerdown', startPlay);
-        };
-
-        const tryPlay = () => {
-          audio.play().then(updatePlayerUI).catch((err) => {
-            console.log("Autoplay bloqueado pelo navegador. Aguardando interação...");
-            document.addEventListener('click', startPlay);
-            document.addEventListener('touchstart', startPlay);
-            document.addEventListener('scroll', startPlay);
-            document.addEventListener('pointerdown', startPlay);
-          });
-        };
-
-        if (audio.readyState >= 2) {
-          tryPlay();
-        } else {
-          audio.addEventListener('canplay', tryPlay, { once: true });
+      // Integração com Spotify: pausar música de fundo quando tocar o Spotify
+      window.addEventListener('message', (event) => {
+        if (event.origin === 'https://open.spotify.com') {
+          try {
+            const data = JSON.parse(event.data);
+            if (data.type === 'playback_update') {
+              const isPlaying = data.payload.is_playing;
+              if (isPlaying) {
+                if (bgAudio && !bgAudio.paused) bgAudio.pause();
+              } else {
+                if (bgAudio) bgAudio.play().catch(e => console.log(e));
+              }
+            }
+          } catch (e) {}
         }
-      }
+      });
+
+      // Fallback para quando o usuário clicar no iframe do Spotify
+      window.addEventListener('blur', () => {
+        setTimeout(() => {
+          if (document.activeElement && document.activeElement.tagName === 'IFRAME') {
+            if (bgAudio && !bgAudio.paused) bgAudio.pause();
+          }
+        }, 150);
+      });
     })();
 
     (function () {
@@ -2658,7 +2672,7 @@
       function setupWelcomeOverlay() {
         const welcomeOverlay = document.getElementById('welcome-overlay');
         const welcomeBtn = document.getElementById('welcome-btn');
-        const audio = document.getElementById('romantic-audio');
+        const bgAudio = document.getElementById('bg-audio');
 
         if (welcomeOverlay && welcomeBtn) {
           document.body.style.overflow = 'hidden';
@@ -2667,15 +2681,10 @@
             welcomeOverlay.classList.add('hidden');
             document.body.style.overflow = '';
 
-            if (!CONFIG.useSpotify && audio) {
-              audio.play().then(() => {
-                const playIcon = document.getElementById('play-icon');
-                const pauseIcon = document.getElementById('pause-icon');
-                const albumArt = document.querySelector('.album-art');
-                if (playIcon) playIcon.style.display = 'none';
-                if (pauseIcon) pauseIcon.style.display = 'block';
-                if (albumArt) albumArt.classList.add('music-playing');
-              }).catch(e => console.log("Erro de autoplay ao abrir presente:", e));
+            // Toca a música de fundo automaticamente ao abrir o presente
+            if (bgAudio) {
+              bgAudio.src = CONFIG.backgroundMusicUrl || "https://upload.wikimedia.org/wikipedia/commons/0/0b/Beethoven_-_F%C3%BCr_Elise.mp3";
+              bgAudio.play().catch(e => console.log("Erro de autoplay da música de fundo:", e));
             }
 
             if (window.burstHearts) {
