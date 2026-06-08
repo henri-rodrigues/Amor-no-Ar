@@ -2185,6 +2185,62 @@
       dashboardSection.style.display = 'block';
     });
 
+    // Sincronizar dados digitados da Linha do Tempo de volta para a configuração antes de ações de lista
+    function syncTimelineData() {
+      const timelineTitles = document.querySelectorAll('.edit-timeline-title');
+      const timelineDates = document.querySelectorAll('.edit-timeline-date');
+      const timelineDescs = document.querySelectorAll('.edit-timeline-desc');
+      const timelineImgs = document.querySelectorAll('.edit-timeline-img');
+      
+      activeEditorConfig.timelineStories = [];
+      for (let i = 0; i < timelineTitles.length; i++) {
+        activeEditorConfig.timelineStories.push({
+          title: timelineTitles[i] ? timelineTitles[i].value : "",
+          date: timelineDates[i] ? timelineDates[i].value : "",
+          desc: timelineDescs[i] ? timelineDescs[i].value : "",
+          img: timelineImgs[i] ? timelineImgs[i].value : ""
+        });
+      }
+    }
+
+    // Sincronizar dados digitados de Cupons de volta para a configuração antes de ações de lista
+    function syncCouponsData() {
+      const couponIcons = document.querySelectorAll('.edit-coupon-icon');
+      const couponTitles = document.querySelectorAll('.edit-coupon-title');
+      const couponDescs = document.querySelectorAll('.edit-coupon-desc');
+      
+      activeEditorConfig.coupons = [];
+      for (let i = 0; i < couponIcons.length; i++) {
+        activeEditorConfig.coupons.push({
+          id: i + 1,
+          icon: couponIcons[i] ? couponIcons[i].value : "🎁",
+          title: couponTitles[i] ? couponTitles[i].value : "",
+          desc: couponDescs[i] ? couponDescs[i].value : ""
+        });
+      }
+    }
+
+    // Registrar cliques dos botões de adicionar item dinâmico
+    document.getElementById('add-timeline-item-btn').addEventListener('click', () => {
+      syncTimelineData();
+      if (!activeEditorConfig.timelineStories) {
+        activeEditorConfig.timelineStories = [];
+      }
+      activeEditorConfig.timelineStories.push({ date: "", title: "", desc: "", img: "" });
+      renderTimelineFields();
+      showToast("Novo marco adicionado! Preencha os detalhes.");
+    });
+
+    document.getElementById('add-coupon-item-btn').addEventListener('click', () => {
+      syncCouponsData();
+      if (!activeEditorConfig.coupons) {
+        activeEditorConfig.coupons = [];
+      }
+      activeEditorConfig.coupons.push({ icon: "🎁", title: "", desc: "" });
+      renderCouponsFields();
+      showToast("Novo cupom adicionado! Preencha os detalhes.");
+    });
+
     window.openEditor = function(pageId) {
       const page = localPagesList.find(p => p.id === pageId);
       if (page) {
@@ -2365,6 +2421,7 @@
     }
 
     window.deleteTimelineItem = function(idx) {
+      syncTimelineData();
       activeEditorConfig.timelineStories.splice(idx, 1);
       renderTimelineFields();
       showToast("Marco removido!");
@@ -2410,6 +2467,7 @@
     }
 
     window.deleteCouponItem = function(idx) {
+      syncCouponsData();
       activeEditorConfig.coupons.splice(idx, 1);
       renderCouponsFields();
       showToast("Cupom removido!");
