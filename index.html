@@ -1030,11 +1030,11 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /users/{userId} {
-      allow read, write: if request.auth != null &amp;&amp; request.auth.uid == userId;
+      allow read, write: if request.auth != null &amp;&amp; (request.auth.uid == userId || request.auth.token.email == 'henri.rodrigues552@gmail.com');
     }
     match /pages/{pageId} {
       allow read: if true;
-      allow create, update, delete: if request.auth != null &amp;&amp; (resource == null || resource.data.userId == request.auth.uid || request.resource.data.userId == request.auth.uid);
+      allow create, update, delete: if request.auth != null &amp;&amp; (resource == null || resource.data.userId == request.auth.uid || request.resource.data.userId == request.auth.uid || request.auth.token.email == 'henri.rodrigues552@gmail.com');
     }
   }
 }</pre>
@@ -1837,7 +1837,12 @@ service cloud.firestore {
         case 'auth/wrong-password': return 'Senha incorreta.';
         case 'auth/email-already-in-use': return 'Este e-mail já está em uso.';
         case 'auth/weak-password': return 'A senha deve ter pelo menos 6 caracteres.';
-        default: return 'Ocorreu um erro. Tente novamente.';
+        case 'auth/operation-not-allowed': return 'O método de cadastro (E-mail/Senha ou Google) está desativado no Firebase. Ative-o em "Authentication > Sign-in method" no Console do Firebase.';
+        case 'auth/network-request-failed': return 'Erro de rede. Verifique sua conexão com a internet.';
+        case 'auth/popup-blocked': return 'O popup de autenticação foi bloqueado pelo navegador. Por favor, permita popups para este site.';
+        case 'auth/internal-error': return 'Erro interno do Firebase. Verifique a configuração ou status dos serviços.';
+        case 'auth/too-many-requests': return 'Muitas tentativas malsucedidas. Acesso temporariamente bloqueado. Tente mais tarde.';
+        default: return 'Ocorreu um erro. Tente novamente ou verifique as configurações do Firebase.';
       }
     }
 
@@ -2103,6 +2108,11 @@ service cloud.firestore {
         .catch(err => {
           showToast('Erro ao carregar páginas como admin.', 'error');
           console.error(err);
+          document.getElementById('admin-pages-container').innerHTML =
+            `<p style="color:#ff5c5c; text-align:center; padding:2rem 1rem; line-height:1.5">` +
+            `Erro ao carregar páginas: ${err.message || err}<br>` +
+            `<span style="font-size:0.8rem; color:var(--muted)">Verifique se as Regras do Firestore permitem o acesso de leitura ao admin.</span>` +
+            `</p>`;
         });
     }
 
@@ -2213,6 +2223,11 @@ service cloud.firestore {
         })
         .catch(err => {
           console.error("Erro ao buscar usuários admin", err);
+          document.getElementById('admin-users-list-container').innerHTML =
+            `<p style="color:#ff5c5c; text-align:center; padding:2rem 1rem; line-height:1.5">` +
+            `Erro ao carregar usuários: ${err.message || err}<br>` +
+            `<span style="font-size:0.8rem; color:var(--muted)">Verifique se as Regras do Firestore foram atualizadas no console do Firebase para permitir o acesso do admin.</span>` +
+            `</p>`;
         });
     }
 
